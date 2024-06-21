@@ -44,14 +44,6 @@ body {
         height: calc(100vh - (var(--header_height) * 2));
         overflow-y: scroll;
     }
-/*
-    #game_clock {
-        position: sticky;
-        bottom: 0;
-        width: 100vw;
-        height: var(--header_height);
-        z-index: 1;
-    }*/
 }
 
 .hidden {
@@ -119,7 +111,6 @@ body {
 }
 
 #header,
-/*#game_clock,*/
 #wallet {
     border-bottom: 8px solid black;
 }
@@ -316,19 +307,6 @@ body.overlay_on #overlay {
     cursor: pointer;
 
 }
-/*
-#game_clock {
-    display: grid;
-    grid-area: clock;
-    text-align: center;
-    color: white;
-    align-self: center;
-    font-weight: bold;
-    font-size: 56px;
-    align-self: stretch;
-    align-content: center;
-    position: relative;
-}*/
 
 #timer {
     text-align: center;
@@ -357,18 +335,13 @@ body.overlay_on #overlay {
     font-size: 16px;
     text-transform: uppercase;
 }
-/*
-#game_clock.limited_time {
-    background-color: var(--alert_color);
-}
-*/
+
 #header+#main {
     margin: 0;
 }
 
 #main {
     grid-area: main;
-    /*    height: calc(100vh - (60px + 1rem));*/
     width: 100vw;
     margin: 0;
     max-width: unset;

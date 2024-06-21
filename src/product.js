@@ -89,12 +89,9 @@ export class product {
         .then((res) => {
             if (!res.ok) {
                 this.image = `/images/product/id_0.png`;
-//                throw new Error("Status code error :" + res.status);
             };
         })
         .catch((err) => {console.info(err)});
-//        await this.getAvailableContracts();
-//        await this.checkForOwnedContracts();
         this.genHtml();
     }
 

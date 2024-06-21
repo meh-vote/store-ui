@@ -13,7 +13,6 @@ import { cleanBigInt, getAccounts, showErrors, showSuccess } from './common.js';
 let products = [];
 
 export async function loadStaticGameData() {
-    //    let gameDetails = await MEHVote.methods.games(params.gameId).call();
     await fetch(new Request(`./data/game_${params.gameId}.json`))
         .then((response) => response.json())
         .then((data) => {
@@ -24,9 +23,6 @@ export async function loadStaticGameData() {
 }
 
 export async function loadStaticProductData() {
-    // When switching to static date, to allow showing w/o provider, will need to assume that contractsDeposited is unkown
-    //    let gameProducts = await MEHVote.methods.getProductsByGameId(params.gameId).call();
-
     products = [];
 
     await fetch(new Request(`./data/products_${params.gameId}.json`))
@@ -53,7 +49,6 @@ export async function loadStaticProductData() {
             let lastProductEnd = products.reduce((maxEnd, currProduct) => { return (currProduct.end > maxEnd.end) ? currProduct : maxEnd })
             if (params.gameEnd < lastProductEnd.end) {
                 params.gameEnd = lastProductEnd.end;
-             //   await checkGameStatus();
             }
         })
         .catch(console.error);
@@ -72,29 +67,6 @@ export async function displayProducts(regenHTML = false) {
         params.contentDiv.insertAdjacentElement('beforeend', _product.html);
     };
 }
-
-/*export async function setGameStatus() {
-    await checkGameStatus();
-    var x = setInterval(function () { checkGameStatus(); }, 60000); // Update the game status every minute
-    initTimer();
-}*/
-
-/*export async function checkGameStatus() {
-    var now = new Date().getTime();
-    if (params.gameEnd < now) { // game has ended
-        params.gameStatus = 2;
-        params.timerDiv.innerHTML = "VOTING HAS ENDED";
-        params.timerDiv.classList.add("small_text");
-    } else if (params.gameStart > now) { // game hasn't started
-        params.gameStatus = 0;
-        params.countDownDate = new Date(params.gameStart).getTime();
-        params.timerStatusDiv.innerHTML = "Game Starts In:";
-    } else { // game is running
-        params.gameStatus = 1;
-        params.countDownDate = new Date(params.gameEnd).getTime();
-        params.timerStatusDiv.innerHTML = "Game Ends In:";
-    }
-}*/
 
 export function updateTransactionQueue() {
     var x = setInterval(function () { checkTransactionQueue(); }, 120000); // Check for completion of pending txs every 2 minutes
@@ -124,29 +96,6 @@ async function checkTransactionQueue() {
     }
 }
 
-/*export function initTimer() {
-    params.timerId = setInterval(function () {
-        var now = new Date().getTime();
-        var distance = params.countDownDate - now;
-
-        var days = (Math.floor(distance / (1000 * 60 * 60 * 24))).toString().padStart(2, '0');
-        var hours = (Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toString().padStart(2, '0');
-        var minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toString().padStart(2, '0');
-        var seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toString().padStart(2, '0');
-
-        params.timerDiv.innerHTML = `${days}:${hours}:${minutes}:${seconds}`;
-
-        if (distance < (1000 * 60 * 60)) { // 1 hour
-            params.gameClockDiv.classList.add("limited_time");
-        }
-
-        if (distance < 0 || params.gameStatus == 2) {
-            clearInterval(params.timerId);
-            params.timerDiv.innerHTML = "VOTING HAS ENDED";
-            params.timerDiv.classList.add("small_text")
-        }
-    }, 1000); // Update the count down every second
-}*/
 export async function vote(_productId) {
     const accounts = await getAccounts();
     const productCost = products.find(product => product.id == _productId).contractPrice;
@@ -177,7 +126,6 @@ export async function vote(_productId) {
         showErrors(`${e.message}`);
         return;
     };
-    //     console.log(gas);
 
     const tx = {
         'from': accounts[0],
@@ -186,7 +134,7 @@ export async function vote(_productId) {
         'gas': web3.utils.toHex(gas.estimatedGas),
         'gasPrice': web3.utils.toHex(gas.gasPrice)
     };
-    //console.log(`calling vote. game: ${params.gameId}, productId: ${_productId}, contracts: ${params.assumedContracts}`);
+
     const txHash = await params.provider.request({
         method: 'eth_sendTransaction',
         params: [tx],

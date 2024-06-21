@@ -17,36 +17,12 @@ import { init as walletInit, connect, tokenDisplay } from './wallet.js';
 library.add(faCirclePlus, faTrashCan);
 dom.watch();
 
-// ****************************
-// Todo list
-// ****************************
-//     --- HIGH ---
-// [ ] account for multi-wallet
-// [ ] update data after transaction submits
-//     ... remaining contracts, contracts owned, available Meh
-// [ ] write and use an updateMehApprovel function, for value and display, on approval and removal
-// [ ] use wallet icon and rearrage wallet-display on narrower screens/devices
-// [ ] helper to add Meh token to wallet
-// [ ] periodic (every X min) refresh of product data (reconcile with pending txs)
-// [ ] sort closed products to the end
-// [ ] refine product class to store its own pointer to the display div/html
-//     --- MEDIUM ---
-// [ ] spinner when waiting for tx to finish / indicator for pending transactions (toaster?)
-// [ ] success message when tx finishes on chain (toaster?)
-// [ ] ^^^ or ^^^ periodic check of any (new) txs on contract, then update
-// [ ] work in persistent storage, record first time through and show splash with setup instructions
-//     --- LOW ---
-// [ ] move x/y contract count to stay visible on card change
-// [ ] clean up all the code, no really, it's rough
-// [ ] prize Meh indicator / leaderboard
-
 export const params = {
     //    preferredNetwork: '0x14a34', // Sepolia
     preferredNetwork: '0x2105', // Base
     currNetwork: null,
     gameId: 1,
     timerDiv: document.getElementById("timer"),
-//    gameClockDiv: document.getElementById("game_clock"),
     timerStatusDiv: document.getElementById("timer_status"),
     contentDiv: document.getElementById("content"),
     walletDiv: document.getElementById("wallet_status"),
@@ -70,13 +46,8 @@ export let sharedData = {
 // SHOW WHAT WE CAN WITHOUT A PROVIDER / WALLET
 await loadStaticGameData();
 await loadStaticProductData();
-//await setGameStatus();
 await prepConnectBtn();
 await walletInit();
-
-// NEXT STEPS
-// * monitor tx queue
-// updateTransactionQueue();
 
 export function prepConnectBtn() {
     document.body.classList.add("disconnected");
