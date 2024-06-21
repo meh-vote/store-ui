@@ -53,7 +53,7 @@ export async function loadStaticProductData() {
             let lastProductEnd = products.reduce((maxEnd, currProduct) => { return (currProduct.end > maxEnd.end) ? currProduct : maxEnd })
             if (params.gameEnd < lastProductEnd.end) {
                 params.gameEnd = lastProductEnd.end;
-                await checkGameStatus();
+             //   await checkGameStatus();
             }
         })
         .catch(console.error);
@@ -73,13 +73,13 @@ export async function displayProducts(regenHTML = false) {
     };
 }
 
-export async function setGameStatus() {
+/*export async function setGameStatus() {
     await checkGameStatus();
     var x = setInterval(function () { checkGameStatus(); }, 60000); // Update the game status every minute
     initTimer();
-}
+}*/
 
-export async function checkGameStatus() {
+/*export async function checkGameStatus() {
     var now = new Date().getTime();
     if (params.gameEnd < now) { // game has ended
         params.gameStatus = 2;
@@ -94,7 +94,7 @@ export async function checkGameStatus() {
         params.countDownDate = new Date(params.gameEnd).getTime();
         params.timerStatusDiv.innerHTML = "Game Ends In:";
     }
-}
+}*/
 
 export function updateTransactionQueue() {
     var x = setInterval(function () { checkTransactionQueue(); }, 120000); // Check for completion of pending txs every 2 minutes
@@ -124,7 +124,7 @@ async function checkTransactionQueue() {
     }
 }
 
-export function initTimer() {
+/*export function initTimer() {
     params.timerId = setInterval(function () {
         var now = new Date().getTime();
         var distance = params.countDownDate - now;
@@ -146,7 +146,7 @@ export function initTimer() {
             params.timerDiv.classList.add("small_text")
         }
     }, 1000); // Update the count down every second
-}
+}*/
 export async function vote(_productId) {
     const accounts = await getAccounts();
     const productCost = products.find(product => product.id == _productId).contractPrice;

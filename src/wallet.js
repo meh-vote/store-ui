@@ -2,7 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { init as addrInit, chainInfo } from './addr.js';
 import { params, prepConnectBtn, updateConnectionStatus } from "./main.js";
 import { showErrors, reloadClient, checkRemainingApproval, checkMehBalance, shortenNumber, removeApproval } from './common.js';
-import { approveMeh } from './vote.js';
+import { approveMeh } from './store.js';
 
 export async function init() {
     // this returns the provider, or null if it wasn't detected

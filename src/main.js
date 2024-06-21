@@ -6,11 +6,11 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import {
     loadStaticGameData,
     loadStaticProductData,
-    setGameStatus,
+//    setGameStatus,
     displayProducts,
     updateLiveProductData,
     checkForContracts
-} from './vote.js';
+} from './store.js';
 import { reloadClient } from './common.js';
 import { init as walletInit, connect, tokenDisplay } from './wallet.js';
 
@@ -46,7 +46,7 @@ export const params = {
     currNetwork: null,
     gameId: 1,
     timerDiv: document.getElementById("timer"),
-    gameClockDiv: document.getElementById("game_clock"),
+//    gameClockDiv: document.getElementById("game_clock"),
     timerStatusDiv: document.getElementById("timer_status"),
     contentDiv: document.getElementById("content"),
     walletDiv: document.getElementById("wallet_status"),
@@ -70,7 +70,7 @@ export let sharedData = {
 // SHOW WHAT WE CAN WITHOUT A PROVIDER / WALLET
 await loadStaticGameData();
 await loadStaticProductData();
-await setGameStatus();
+//await setGameStatus();
 await prepConnectBtn();
 await walletInit();
 

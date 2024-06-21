@@ -1,5 +1,5 @@
 import { shortenNumber } from './common.js';
-import { vote, claim } from './vote.js';
+import { vote, claim } from './store.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
 
@@ -30,7 +30,7 @@ export class product {
         this.soldOut = (this.remainingContracts && this.remainingContracts == 0)?true:false;
         this.limitedRun = limitedRun;
         this.html = null;
-        this.image = `/images/vote/id_${this.id}.png`;
+        this.image = `/images/product/id_${this.id}.png`;
         this.totalContracts = isNaN(totalContracts) ? 0 : totalContracts;
         this.activeStatus = 2; // 0: not yet open, 1: active, 2: product has closed
         this.setActiveState();
@@ -88,7 +88,7 @@ export class product {
         await fetch(this.image, {method: 'HEAD'})
         .then((res) => {
             if (!res.ok) {
-                this.image = `/images/vote/id_0.png`;
+                this.image = `/images/product/id_0.png`;
 //                throw new Error("Status code error :" + res.status);
             };
         })
