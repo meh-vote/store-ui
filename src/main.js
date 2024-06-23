@@ -6,7 +6,6 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import {
     loadStaticGameData,
     loadStaticProductData,
-//    setGameStatus,
     displayProducts,
     updateLiveProductData,
     checkForContracts

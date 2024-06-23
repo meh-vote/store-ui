@@ -9,7 +9,13 @@
     "mehStore": true,
     "name": "MEH SHIRT 01",
     "prizeMeh": 25000000000000000000000000,
-    "totalContracts": 1000
+    "totalContracts": 1000,
+    "USD": 50.00,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "ordeMin": 100,
+    "sizes": ["m", "l", "xl", "xxl"],
+    "saleStatus": "active"
 },
 {
     "begin": 1715220000,
@@ -22,7 +28,13 @@
     "mehStore": true,
     "name": "MEH HAT 01",
     "prizeMeh": 10000000000000000000000000,
-    "totalContracts": 2000
+    "totalContracts": 2000,
+    "USD": 30.00,
+    "shipping_domestic": 5.00,
+    "shipping_international": 20.00,
+    "order_min": 50,
+    "sizes": ["adjustable"],
+    "saleStatus": "active"
 },
 {
     "begin": 1715220000,

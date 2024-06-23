@@ -45,22 +45,21 @@ export class product {
         this.html.style.backgroundImage = `url(${this.image})`;
         this.html.id = `product_${this.id}`;
         this.html.innerHTML =
-        `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>
+        `${(params.provider && `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`)}
         <div class="desc">
             <div class="title">
                 <div>${this.name}</div>
-                <div></div>
             </div>
             <div class="action">
-                <div>${shortenNumber(this.contractPrice,0)} Meh</div>
+                <div>${shortenNumber(this.contractPrice,0)} USDC</div>
                 ${(params.provider)
-                    ?`<div>Contracts Remaining ${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`
-                    :`<div>Provider required to check Contracts Remaining</div>`
+                    ?`<div>Preorder sales</div>`
+                    :`<div>Provider required to check preorder status</div>`
                 }
             </div>
         </div>`;
 
-        if (this.soldOut) {
+/*        if (this.soldOut) {
             this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
         } else if (this.activeStatus == 0) {
             this.html.insertAdjacentHTML('beforeend', `<div class="message"><div class="success small_text">Opens<br />${new Date(this.begin).toLocaleString()}</div></div>`);
@@ -82,7 +81,7 @@ export class product {
                 this.html.insertAdjacentHTML('afterbegin', `<span class="contract_count fa-layers-counter fa-3x">${this.contractsOwned}</span>`)
             }
         }
-    }
+*/    }
 
     async asyncInit() {
         await fetch(this.image, {method: 'HEAD'})

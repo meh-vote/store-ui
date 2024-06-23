@@ -11,19 +11,22 @@ Ideal will prompt no interaction until required for transaction
 * ethernet provider available, wallet connected, on Base, with Meh / Meh-NFT in wallet (?)
 
 # job-tasks
-* public: view products
-* public: view instructions
-  * need to understand; purchase NFT, trade NFT (optional), exchange NFT for product
+* view products
+* view instructions
+  * need to understand process; purchase NFT, trade NFT (optional), exchange NFT for product
   * pre-order queue
-* public: buy product with USD/CC (future, will require processor)
-  * buy NFT, NFT immediately exchanged for product, address collected, (pre-)order queue updated
-* public: buy NFT with USDC / Meh
-* public: exchange NFT for product
-* public: select product attributes (eg. shirt size)
-* public: view pre-order status (% to critical mass)
-* ??????: collect royalties
-* public: leaderboards
+* buy NFT with USDC / Meh
+* exchange NFT for product
+  * collect shipping; should we eat shipping in any cases? (eg domestic users exchanging their royalty contract, Meh whales, etc)
+* select product attributes (eg. shirt size)
+* view pre-order status (% to critical mass)
+* collect royalties
+* exchange royalty contract for product-nft
+## future
+* leaderboards
   * need to maintain list of ignored wallets/addresses (eg. treasury)
+* buy product with USD/CC (future, will require processor)
+  * buy NFT, NFT immediately exchanged for product, address collected, (pre-)order queue updated
 
 
 
