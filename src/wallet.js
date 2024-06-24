@@ -13,7 +13,7 @@ export async function init() {
     } else {
         console.log('Please install MetaMask!');
         // call showErrors with stop
-        showErrors("Please install a web3 provider like MetaMask", true);
+//        showErrors("Please install a web3 provider like MetaMask", true);
     }
 }
 

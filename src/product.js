@@ -1,5 +1,4 @@
 import { shortenNumber } from './common.js';
-import { vote, claim } from './store.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
 
@@ -15,7 +14,8 @@ export class product {
         begin = null,
         end = null,
         limitedRun = true,
-        totalContracts = null
+        totalContracts = null,
+        saleStatus = null
     }) {
         this.id = id;
         this.name = name;
@@ -35,6 +35,7 @@ export class product {
         this.activeStatus = 2; // 0: not yet open, 1: active, 2: product has closed
         this.setActiveState();
         this.contractsOwned = null;
+        this.saleStatus = saleStatus;
 // Need to hold on displaying the remaining contracts until we have a read connection and check the live data
 //        console.log(`contractsDeposited ${this.contractsDeposited}`)
     };
@@ -44,9 +45,11 @@ export class product {
         this.html.className = 'product';
         this.html.style.backgroundImage = `url(${this.image})`;
         this.html.id = `product_${this.id}`;
-        this.html.innerHTML =
-        `${(params.provider && `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`)}
-        <div class="desc">
+        if (params.provider) {
+            this.html.insertAdjacentHTML('afterbegin', `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`);
+        };
+        this.html.insertAdjacentHTML('beforeend',
+        `<div class="desc">
             <div class="title">
                 <div>${this.name}</div>
             </div>
@@ -57,7 +60,11 @@ export class product {
                     :`<div>Provider required to check preorder status</div>`
                 }
             </div>
-        </div>`;
+        </div>`);
+
+        if (this.saleStatus != 'active') {
+            this.html.insertAdjacentHTML('beforeend', `<div class="alert small_text">Coming Soon</div>`);
+        }
 
 /*        if (this.soldOut) {
             this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
@@ -92,6 +99,7 @@ export class product {
         })
         .catch((err) => {console.info(err)});
         this.genHtml();
+//        console.log(this.html)
     }
 
     setActiveState() {

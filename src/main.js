@@ -4,7 +4,6 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 import {
-    loadStaticGameData,
     loadStaticProductData,
     displayProducts,
     updateLiveProductData,
@@ -21,8 +20,8 @@ export const params = {
     preferredNetwork: '0x2105', // Base
     currNetwork: null,
     gameId: 1,
-    timerDiv: document.getElementById("timer"),
-    timerStatusDiv: document.getElementById("timer_status"),
+//    timerDiv: document.getElementById("timer"),
+//    timerStatusDiv: document.getElementById("timer_status"),
     contentDiv: document.getElementById("content"),
     walletDiv: document.getElementById("wallet_status"),
     tokenScale: 1000000000000000000,
@@ -38,12 +37,12 @@ export const params = {
     // write :: additionally, requires an address
 };
 
-export let sharedData = {
+/*export let sharedData = {
     view: 'vote'
-}
+}*/
 
 // SHOW WHAT WE CAN WITHOUT A PROVIDER / WALLET
-await loadStaticGameData();
+//await loadStaticGameData();
 await loadStaticProductData();
 await prepConnectBtn();
 await walletInit();

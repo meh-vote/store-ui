@@ -12,7 +12,7 @@ import { cleanBigInt, getAccounts, showErrors, showSuccess } from './common.js';
 
 let products = [];
 
-export async function loadStaticGameData() {
+/*export async function loadStaticGameData() {
     await fetch(new Request(`./data/game_${params.gameId}.json`))
         .then((response) => response.json())
         .then((data) => {
@@ -20,7 +20,7 @@ export async function loadStaticGameData() {
             params.gameEnd = Number(data.end) * 1000;
         })
         .catch(console.error);
-}
+}*/
 
 export async function loadStaticProductData() {
     products = [];
@@ -40,7 +40,8 @@ export async function loadStaticProductData() {
                     begin: Number(_product.begin),
                     end: Number(_product.end),
                     limitedRun: _product.limitedRun,
-                    totalContracts: Number(_product.totalContracts)
+                    totalContracts: Number(_product.totalContracts),
+                    saleStatus: _product.saleStatus
                 }));
             }
             // sort by product begin
@@ -62,9 +63,15 @@ export async function loadStaticProductData() {
 
 export async function displayProducts(regenHTML = false) {
     params.contentDiv.innerHTML = '';
+    params.contentDiv.insertAdjacentHTML('beforeend',`<div id="products"></div>`);
+    const productsDiv = document.getElementById("products");
+    params.contentDiv.insertAdjacentHTML('beforeend',`<div id="coming_soon"></div>`);
+    const comingDiv = document.getElementById("coming_soon");
+
     for (const _product of products) {
         if (regenHTML) { _product.genHtml(); }
-        params.contentDiv.insertAdjacentElement('beforeend', _product.html);
+        const target = (_product.saleStatus == 'active') ? productsDiv : comingDiv;
+        target.insertAdjacentElement('beforeend', _product.html);
     };
 }
 
@@ -96,7 +103,7 @@ async function checkTransactionQueue() {
     }
 }
 
-export async function vote(_productId) {
+/*export async function vote(_productId) {
     const accounts = await getAccounts();
     const productCost = products.find(product => product.id == _productId).contractPrice;
     if (accounts.length <= 0) {
@@ -148,7 +155,7 @@ export async function vote(_productId) {
     });
 
     return txHash;
-};
+};*/
 
 export async function approveMeh(amt) {
     const accounts = await getAccounts();
@@ -261,6 +268,6 @@ export function checkForContracts() {
 
 window.MEHToken = MEHToken;
 window.MEHVote = MEHVote;
-window.vote = vote;
+//window.vote = vote;
 window.loadStaticProductData = loadStaticProductData;
 
