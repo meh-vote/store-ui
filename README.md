@@ -1,8 +1,7 @@
-# store-ui
-JS build for Store UI
+# JS build for Store UI
 
-# user-states, on load
-Ideal will prompt no interaction until required for transaction
+## user-states, on load
+Prompt no interaction until required for transaction
 * no wallet/ethernet-provider available
 * ethernet provider available, wallet not conencted
 * ethernet provider available, wallet connected, on Base
@@ -10,10 +9,10 @@ Ideal will prompt no interaction until required for transaction
   * maybe let them buy with USDC on ethereum chain?
 * ethernet provider available, wallet connected, on Base, with Meh / Meh-NFT in wallet (?)
 
-# job-tasks
-* view products
-* view instructions
-  * need to understand process; purchase NFT, trade NFT (optional), exchange NFT for product
+## job-tasks
+* public: view products
+* public: view instructions
+  * need to understand; purchase NFT, trade NFT (optional), exchange NFT for product
   * pre-order queue
 * buy NFT with USDC / Meh
 * exchange NFT for product
@@ -30,3 +29,5 @@ Ideal will prompt no interaction until required for transaction
 
 
 
+- Buy the product (with CC/USD, USDC, Product NFT, Royalty NFT)
+- Buy an NFT of the product (with USDC, Royalty NFT)

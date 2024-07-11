@@ -7,6 +7,7 @@
     "mehContracts": 75,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 40,
     "name": "MEH SHIRT 01",
     "prizeMeh": 25000000000000000000000000,
     "totalContracts": 1000,
@@ -26,6 +27,7 @@
     "mehContracts": 150,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 40,
     "name": "MEH HAT 01",
     "prizeMeh": 10000000000000000000000000,
     "totalContracts": 2000,
@@ -45,7 +47,8 @@
     "mehContracts": 250,
     "mehContractsDeposited": null,
     "mehStore": true,
-    "name": "MEH DIGITAL STICKERS 01",
+    "usdcPrice": 1,
+    "name": "MEH DIGITAL STICKER 01",
     "prizeMeh": 1000000,
     "totalContracts": 250
 },
@@ -58,6 +61,7 @@
     "mehContracts": 25,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 100,
     "name": "MEH DECK 01",
     "prizeMeh": 100000000000000000000000000,
     "totalContracts": 25
@@ -71,6 +75,7 @@
     "mehContracts": 250,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 40,
     "name": "MEH SHIRT 02",
     "prizeMeh": 100000000000000000000000000,
     "totalContracts": 1000
@@ -84,6 +89,7 @@
     "mehContracts": 50,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 100,
     "name": "MEH HOODIE ERC-721",
     "prizeMeh": 50000000000000000000000000,
     "totalContracts": 50
@@ -97,6 +103,7 @@
     "mehContracts": 500,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 40,
     "name": "MEH HAT ERC-721",
     "prizeMeh": 5000000000000000000000000,
     "totalContracts": 2000
@@ -110,6 +117,7 @@
     "mehContracts": 100,
     "mehContractsDeposited": null,
     "mehStore": true,
+    "usdcPrice": 125,
     "name": "MEH HOODIE 01",
     "prizeMeh": 2500000000000000000000000,
     "totalContracts": 1000

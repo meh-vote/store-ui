@@ -11,6 +11,7 @@ export class product {
         contractPrice = null,
         prizeMeh = 0,
         mehStore = false,
+        usdcPrice = null,
         begin = null,
         end = null,
         limitedRun = true,
@@ -24,6 +25,7 @@ export class product {
         this.contractPrice = isNaN(contractPrice) ? null : (contractPrice < 1)? 1 : contractPrice;
         this.prizeMeh = prizeMeh;
         this.mehStore = mehStore;
+        this.usdcPrice = usdcPrice;
         this.begin = Number(begin) * 1000;
         this.end = Number(end) * 1000;
         this.remainingContracts = (mehContracts && contractsDeposited)?((mehContracts && (mehContracts - contractsDeposited) > 0)?mehContracts - contractsDeposited:0):null;
@@ -45,10 +47,10 @@ export class product {
         this.html.className = 'product';
         this.html.style.backgroundImage = `url(${this.image})`;
         this.html.id = `product_${this.id}`;
-        if (params.provider) {
+/*        if (params.provider) {
             this.html.insertAdjacentHTML('afterbegin', `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`);
         };
-        this.html.insertAdjacentHTML('beforeend',
+*//*        this.html.insertAdjacentHTML('beforeend',
         `<div class="desc">
             <div class="title">
                 <div>${this.name}</div>
@@ -61,11 +63,7 @@ export class product {
                 }
             </div>
         </div>`);
-
-        if (this.saleStatus != 'active') {
-            this.html.insertAdjacentHTML('beforeend', `<div class="alert small_text">Coming Soon</div>`);
-        }
-
+*/
 /*        if (this.soldOut) {
             this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
         } else if (this.activeStatus == 0) {
@@ -75,20 +73,28 @@ export class product {
         } else if (this.activeStatus == 1 && this.soldOut == false) {
             this.html.addEventListener('click', () => vote(this.id))
         }
+*/
 
-        if (this.contractsOwned && this.contractsOwned > 0) {
-            if (this.soldOut) {
-                this.html.insertAdjacentHTML('afterbegin', `<span id="contract_count_${this.id}" class="contract_count fa-layers-counter fa-4x">CLAIM ${this.contractsOwned}</span>`);
-                this.html.getElementsByClassName(`contract_count`)[0].addEventListener('click', (evt) => {
-                    claim(this.id);
-                    evt.stopImmediatePropagation();
-                    console.log(`Claiming ${this.contractsOwned} contracts...`)
-                })
-            } else {
-                this.html.insertAdjacentHTML('afterbegin', `<span class="contract_count fa-layers-counter fa-3x">${this.contractsOwned}</span>`)
+// FOR STYLING, SHOW AS PRESALE STATE
+        if (this.saleStatus == 'active') {
+            this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining XXX/YYY</div></div>`);
+
+            if (this.contractsOwned && this.contractsOwned > 0) {
+                if (this.soldOut) {
+                    this.html.insertAdjacentHTML('afterbegin', `<span id="contract_count_${this.id}" class="contract_count fa-layers-counter fa-4x">CLAIM ${this.contractsOwned}</span>`);
+                    this.html.getElementsByClassName(`contract_count`)[0].addEventListener('click', (evt) => {
+                        claim(this.id);
+                        evt.stopImmediatePropagation();
+                        console.log(`Claiming ${this.contractsOwned} contracts...`)
+                    })
+                } else {
+                    this.html.insertAdjacentHTML('afterbegin', `<span class="contract_count fa-layers-counter fa-3x">${this.contractsOwned}</span>`)
+                }
             }
+        } else {
+            this.html.insertAdjacentHTML('beforeend', `<div class="coming_soon alert">coming soon</div>`);
         }
-*/    }
+    }
 
     async asyncInit() {
         await fetch(this.image, {method: 'HEAD'})

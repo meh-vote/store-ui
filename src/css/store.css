@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    --alert_color: rgb(234 35 254);
+/*    --alert_color: rgb(234 35 254);
+*/    --alert_color: rgb(255 0 0 / 1);
     --success_color: rgb(2 228 43);
     --header_height: 94px;
-    --background-color-dark: rgb(0 0 0 / 0.8);
-    --background-color-light: white;
+    --background-color-dark: rgb(0 0 0 / 1);
+/*    --background-color-light: rgb(128 128 128 / 1);
+*/    --background-color-light: white;
     --background-color-overlay: rgb(0 0 0 / 0.6);
-    --background-color-header: var(--background-color-overlay);
+    --background-color-header: rgb(255 0 0 / 1);
 }
 
 *,
@@ -70,7 +72,7 @@ body {
     padding-left: 0.5rem;
     background-image: url('/images/meh.png');
     background-blend-mode: exclusion;
-    background-size: auto 48px;
+    background-size: auto 72px;
     background-repeat: no-repeat;
     background-position: 1rem center;
     text-align: right;
@@ -120,6 +122,7 @@ body {
 #wallet {
     border-bottom: 8px solid black;
     background-color: var(--background-color-header);
+
 }
 
 #logo #meh_logo {
@@ -267,11 +270,11 @@ body.overlay_on #overlay {
 }
 
 .connected #wallet_status {
-    color: var(--success_color);
+    color: white;
 }
 
 .disconnected #wallet_status {
-    color: var(--alert_color);
+    color: white;
 }
 
 .disconnected #wallet {
@@ -289,6 +292,7 @@ body.overlay_on #overlay {
     width: 100%;
     text-align: center;
     bottom: 0;
+    display:none;
 }
 
 #token_status,
@@ -311,7 +315,7 @@ body.overlay_on #overlay {
 
 #del_approval,
 #del_approval * {
-    color: var(--alert_color);
+    color: white;
     cursor: pointer;
 
 }
@@ -329,6 +333,7 @@ body.overlay_on #overlay {
     position: absolute;
     width: 100%;
     text-align: center;
+    display:none;
 }
 
 #timer_status,
@@ -436,7 +441,6 @@ body.overlay_on #overlay {
 }
 
 .product .alert {
-    height: 100%;
     align-items: center;
     position: absolute;
     top: calc(50% - 40px);
@@ -446,11 +450,59 @@ body.overlay_on #overlay {
     text-align: center;
     background-color: var(--alert_color);
     height: 80px;
-    font-size: 64px;
+    font-size: 48px;
     font-weight: bold;
     align-content: center;
     display: grid;
     opacity: 0.9;
+}
+
+.product .base_info {
+    align-items: center;
+    position: absolute;
+/*    top: calc(50% - 40px);*/
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 -10px -10px;
+    text-align: center;
+    background-color: red;
+    height: 60px;
+    font-size: 64px;
+    font-weight: bold;
+    align-content: center;
+    opacity: 0.9;
+    grid-template: 2fr 1fr / auto 1fr;
+    bottom: 0;
+    line-height: normal;
+    display:none;
+}
+
+.product:active .base_info,
+.product:hover .base_info {
+    display: grid;
+}
+
+.product .base_info div:first-of-type {
+    text-align: left;
+}
+
+.product .base_info div:nth-of-type(2) {
+    text-align: right;
+    font-family: 'Roboto Condensed';
+    font-weight: 300;
+}
+
+.product .base_info div:first-of-type,
+.product .base_info div:nth-of-type(2) {
+    font-size: 24px;
+}
+
+.product .base_info div:last-of-type {
+    grid-column: 1 / span 2;
+    font-family: 'Roboto Condensed';
+    font-size: 16px;
+    text-align: left;
+    font-weight: 300;
 }
 
 .message .success.small_text,

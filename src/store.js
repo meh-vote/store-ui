@@ -37,6 +37,7 @@ export async function loadStaticProductData() {
                     contractPrice: cleanBigInt(_product.mehContractPrice, params.tokenScale),
                     prizeMeh: cleanBigInt(_product.prizeMeh, params.tokenScale),
                     mehStore: _product.mehStore,
+                    usdcPrice: Number(_product.usdcPrice),
                     begin: Number(_product.begin),
                     end: Number(_product.end),
                     limitedRun: _product.limitedRun,
