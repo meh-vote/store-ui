@@ -42,7 +42,8 @@ export async function loadStaticProductData() {
                     end: Number(_product.end),
                     limitedRun: _product.limitedRun,
                     totalContracts: Number(_product.totalContracts),
-                    saleStatus: _product.saleStatus
+                    saleStatus: _product.saleStatus,
+                    order_min: Number(_product.order_min)
                 }));
             }
             // sort by product begin

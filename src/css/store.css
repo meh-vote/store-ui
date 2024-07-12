@@ -537,11 +537,17 @@ body.overlay_on #overlay {
     letter-spacing: 0.10rem;
 }
 
-.product:active,
-.product:hover {
+:not(#coming_soon) > .product:active,
+:not(#coming_soon) > .product:hover {
     background-color: rgb(0 0 0 / 0.6);
     background-blend-mode: overlay;
 }
+
+#coming_soon > .product {
+    pointer-events: none;
+}
+
+
 
 /*.product:active .remaining,
 .product:hover .remaining,

@@ -14,7 +14,7 @@
     "USD": 50.00,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
-    "ordeMin": 100,
+    "order_min": 100,
     "sizes": ["m", "l", "xl", "xxl"],
     "saleStatus": "active"
 },

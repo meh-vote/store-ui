@@ -16,7 +16,8 @@ export class product {
         end = null,
         limitedRun = true,
         totalContracts = null,
-        saleStatus = null
+        saleStatus = null,
+        order_min = null
     }) {
         this.id = id;
         this.name = name;
@@ -38,6 +39,7 @@ export class product {
         this.setActiveState();
         this.contractsOwned = null;
         this.saleStatus = saleStatus;
+        this.preorderMin = order_min;
 // Need to hold on displaying the remaining contracts until we have a read connection and check the live data
 //        console.log(`contractsDeposited ${this.contractsDeposited}`)
     };
@@ -77,7 +79,7 @@ export class product {
 
 // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
-            this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining XXX/YYY</div></div>`);
+            this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
 
             if (this.contractsOwned && this.contractsOwned > 0) {
                 if (this.soldOut) {
