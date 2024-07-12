@@ -561,10 +561,14 @@ body.overlay_on #overlay {
     display: block;
 }
 
-.product .contract_count {
+.product .contract_count,
+.product .buy_nft {
     background: var(--success_color);
     position: absolute;
     top: -1rem;
     right: -1rem;
     z-index: 2;
+    padding: 0.5rem 1rem;
+    box-shadow: 5px 5px rgb(63 63 63 / 1);
+    font-weight: bold;
 }

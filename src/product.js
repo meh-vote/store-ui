@@ -81,6 +81,18 @@ export class product {
         if (this.saleStatus == 'active') {
             this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
 
+            this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY NFT</span>`);
+            this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', (evt) => {
+                //buyNFT(this.id);
+                evt.stopImmediatePropagation();
+                window.alert(`BUY NFT Checklist
+                    1. ethereum provider
+                    2. wallet connected
+                    3. on BASE mainnet
+                    4. Approve MEH
+                    5. Buy NFT`)
+            })
+
             if (this.contractsOwned && this.contractsOwned > 0) {
                 if (this.soldOut) {
                     this.html.insertAdjacentHTML('afterbegin', `<span id="contract_count_${this.id}" class="contract_count fa-layers-counter fa-4x">CLAIM ${this.contractsOwned}</span>`);

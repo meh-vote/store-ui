@@ -1,5 +1,9 @@
 # JS build for Store UI
 
+## Initial overlay, help screen
+* Steps explained
+* Store a flag to browser that user has seen 1x
+
 ## user-states, on load
 Prompt no interaction until required for transaction
 * no wallet/ethernet-provider available
