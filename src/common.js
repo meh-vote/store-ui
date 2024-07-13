@@ -27,13 +27,15 @@ export function showErrors(_message, _stop = false) {
     let div = document.createElement("div");
     div.id = "overlay";
     document.body.insertAdjacentElement('beforeend', div);
-    div.innerHTML = _message;
+    div.innerHTML = `<div id="overlay_content">${_message}</div>`;
     document.body.classList.add("overlay_on");
 
     if (_stop) {
         throw new Error(_message);
     } else {
-        setTimeout(() => { document.body.classList.remove("overlay_on"); }, 5000);
+        setTimeout(() => {
+            document.getElementById("overlay").remove();
+        }, 5000);
     }
 }
 
@@ -42,14 +44,16 @@ export function showSuccess(_message, link = null) {
     div.id = "overlay";
     document.body.insertAdjacentElement('beforeend', div);
     if (link) {
-        div.innerHTML = `${_message}<br /><a href="https://${etherscan}/tx/${link}" target="_blank">${link}</a>`;
+        div.innerHTML = `<div id="overlay_content">${_message}<br /><a href="https://${etherscan}/tx/${link}" target="_blank">${link}</a></div>`;
     } else {
         div.innerHTML = _message;
     }
     document.body.classList.add("overlay_on");
 
-    setTimeout(() => { document.body.classList.remove("overlay_on"); }, 5000);
-    //console.log(_message);
+    setTimeout(() => {
+        document.getElementById("overlay").remove();
+    }, 5000);
+//console.log(_message);
 }
 
 // **********************
