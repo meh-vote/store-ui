@@ -268,8 +268,8 @@ export function checkForContracts() {
 // SAMPLE / TEST CODE BELOW
 // ****************************
 
-window.MEHToken = MEHToken;
-window.MEHVote = MEHVote;
+//window.MEHToken = MEHToken;
+//window.MEHVote = MEHVote;
 //window.vote = vote;
-window.loadStaticProductData = loadStaticProductData;
+//window.loadStaticProductData = loadStaticProductData;
 

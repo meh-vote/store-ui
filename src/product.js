@@ -1,6 +1,7 @@
-import { shortenNumber } from './common.js';
+import { shortenNumber, showErrors } from './common.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
+import { getConnectionReady, checkUSDC } from './wallet.js';
 
 export class product {
     constructor({
@@ -82,15 +83,25 @@ export class product {
             this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
 
             this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY NFT</span>`);
-            this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', (evt) => {
+            this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
                 //buyNFT(this.id);
                 evt.stopImmediatePropagation();
-                window.alert(`BUY NFT Checklist
-                    1. ethereum provider
-                    2. wallet connected
-                    3. on BASE mainnet
-                    4. Approve MEH
-                    5. Buy NFT`)
+//                window.alert(`Starting purchase process`);
+//                console.log(params.connection);
+//                if (params.connection != 'write' || params.currNetwork != params.preferredNetwork) {
+                    await getConnectionReady()
+                .then(() => {
+                    console.log(`Connection ready`);
+                }).catch((e) => {
+                    console.log('connection issue:', e)
+                    showErrors(e.message);
+                });
+        
+//                } else {
+                    checkUSDC();
+                    //is there enough USDC?
+                    //is there (enough) approval?
+//                };
             })
 
             if (this.contractsOwned && this.contractsOwned > 0) {

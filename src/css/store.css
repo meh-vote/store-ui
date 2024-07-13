@@ -241,6 +241,7 @@ body {
     z-index: 1000;
     background-color: rgb(188 188 188 / 0.8);
     align-content: center;
+    color: black;
 }
 
 body.overlay_on {

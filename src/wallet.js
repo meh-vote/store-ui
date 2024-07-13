@@ -13,7 +13,6 @@ export async function init() {
     } else {
         console.log('Please install MetaMask!');
         // call showErrors with stop
-//        showErrors("Please install a web3 provider like MetaMask", true);
     }
 }
 
@@ -37,7 +36,7 @@ async function startApp(_provider) {
 
     params.currNetwork = await ethereum.request({ method: 'eth_chainId' });
 
-    await switchNetwork(params.preferredNetwork)
+    // await switchNetwork(params.preferredNetwork)
 
     await addrInit();
 
@@ -77,8 +76,8 @@ function handleAccounts(accounts) {
     showConnectionInfo();
 }
 
-export function connect() {
-    ethereum
+export async function connect() {
+    await ethereum
         .request({ method: 'eth_requestAccounts' })
         .then(handleAccounts)
         .catch((err) => {
@@ -89,6 +88,7 @@ export function connect() {
             } else {
                 console.error(err);
             }
+            throw new Error(err.message);
         });
 }
 
@@ -125,6 +125,35 @@ function showConnectionInfo() {
         document.getElementById("wallet").insertAdjacentElement('beforeend', infoDiv);
 }
 
+export async function getConnectionReady() {
+    //is there a provider?
+    if (!params.provider) {
+//        showErrors("Please use or install a web3 provider like MetaMask");
+//        return;
+        throw new Error("Please use or install a web3 provider like MetaMask");
+    };
+    //is there a connected account?
+    if (!params.account) {
+        try {
+           await connect();
+        } catch (err) {
+//            console.log(err);
+//            showErrors(err.message);
+//            return;
+                throw new Error(err.message);
+        }
+    };
+    //is it on the right chain?
+    try {
+        await switchNetwork();
+    } catch (err) {
+//        showErrors(err.message);
+//        return;
+            throw new Error(err.message);
+    };
+    return;
+};
+
 function truncAddr(addr, limit = 4) {
     if (addr.length <= (limit * 2)) {
         return addr;
@@ -132,6 +161,11 @@ function truncAddr(addr, limit = 4) {
     var shortAddr = `${addr.substr(0, limit)}...${addr.substr(limit * -1)}`
     return shortAddr;
 };
+
+export function checkUSDC() {
+    console.log(`TO DO: checkUSDC()`);
+    return;
+}
 
 export async function tokenDisplay() {
     const displayDiv = document.getElementById('wallet');

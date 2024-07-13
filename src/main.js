@@ -61,14 +61,14 @@ function showConnected() {
     params.walletDiv.innerText = 'Connected';
     params.walletDiv.removeEventListener("click", connect);
 //    console.info(`output meh token balance and approval amount`);
-    tokenDisplay();
+//    tokenDisplay();
 }
 
 export function updateConnectionStatus(_status = 'static') {
     if (_status == 'read' && params.connection != 'read') { // we've just switched to read
         displayProducts(true);
         if (params.connection != 'write') {
-            updateLiveProductData();
+            //updateLiveProductData();
         } else {
             reloadClient()
         }
@@ -76,9 +76,9 @@ export function updateConnectionStatus(_status = 'static') {
     } else if (_status == 'write' && params.connection != 'write') { // we've just switched to write
         displayProducts(true);
         if (params.connection != 'read') {
-            updateLiveProductData();
+            //updateLiveProductData();
         }
-        checkForContracts()
+        //checkForContracts()
         showConnected()
         params.connection = 'write';
     } else if (_status == 'static' && params.connection != 'static') {  // we've just switched to static

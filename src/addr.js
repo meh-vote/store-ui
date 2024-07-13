@@ -7,6 +7,8 @@ export let MEH_FAUCET;
 export let MEH_VOTE;
 export let MEH_TOKEN;
 export let MEH_ROYALTY;
+export let MEH_STORE;
+export let MEH_STORE_NFT;
 export let web3;
 export let etherscan;
 export let apiKey;
@@ -18,6 +20,8 @@ export let networkName;
 export let MEHToken;
 export let MEHVote;
 export let MEHRoyalty;
+export let MEHStore;
+export let MEHStoreNFT;
 
 export let chainInfo = [
     {"chainName": "Base Sepolia", "chainId": "0x14a34", "supported": true},
@@ -30,7 +34,6 @@ export let chainInfo = [
 export async function init() {
     chainId = await params.provider.request({ method: 'eth_chainId' });
     web3 = new Web3(params.provider);
-
     if (chainId == '0x14a34') {    //  ----- BaseSepolia -----
         MEH_TOKEN = "0xEf4C3545edf08563bbC112D5CEf0A10B396Ea12E";
         MEH_FAUCET = "0x47FA1e09E9Ae17bC6F37A60F3C44f56D25213112";

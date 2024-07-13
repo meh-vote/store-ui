@@ -178,3 +178,5 @@ async function getGasPrice() {
     return price;
 }
 
+window.showSuccess = showSuccess;
+window.showErrors = showErrors;
