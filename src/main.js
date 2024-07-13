@@ -18,6 +18,7 @@ dom.watch();
 export const params = {
     //    preferredNetwork: '0x14a34', // Sepolia
     preferredNetwork: '0x2105', // Base
+    onPreferredNetwork: null,
     currNetwork: null,
     gameId: 1,
 //    timerDiv: document.getElementById("timer"),
@@ -37,12 +38,7 @@ export const params = {
     // write :: additionally, requires an address
 };
 
-/*export let sharedData = {
-    view: 'vote'
-}*/
-
 // SHOW WHAT WE CAN WITHOUT A PROVIDER / WALLET
-//await loadStaticGameData();
 await loadStaticProductData();
 await prepConnectBtn();
 await walletInit();
@@ -53,37 +49,4 @@ export function prepConnectBtn() {
     params.walletDiv.innerText = 'Connect';
     params.walletDiv.addEventListener("click", connect);
     params.account = null;
-}
-
-function showConnected() {
-    document.body.classList.add("connected");
-    document.body.classList.remove("disconnected");
-    params.walletDiv.innerText = 'Connected';
-    params.walletDiv.removeEventListener("click", connect);
-//    console.info(`output meh token balance and approval amount`);
-//    tokenDisplay();
-}
-
-export function updateConnectionStatus(_status = 'static') {
-    if (_status == 'read' && params.connection != 'read') { // we've just switched to read
-        displayProducts(true);
-        if (params.connection != 'write') {
-            //updateLiveProductData();
-        } else {
-            reloadClient()
-        }
-        params.connection = 'read';
-    } else if (_status == 'write' && params.connection != 'write') { // we've just switched to write
-        displayProducts(true);
-        if (params.connection != 'read') {
-            //updateLiveProductData();
-        }
-        //checkForContracts()
-        showConnected()
-        params.connection = 'write';
-    } else if (_status == 'static' && params.connection != 'static') {  // we've just switched to static
-        reloadClient()
-    } else {
-        throw new Error(`Trying to switch to/from an unknown connection type: ${params.connection} ... ${_status}`);
-    }
 }

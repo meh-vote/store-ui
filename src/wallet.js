@@ -1,8 +1,8 @@
 import detectEthereumProvider from '@metamask/detect-provider';
-import { init as addrInit, chainInfo } from './addr.js';
-import { params, prepConnectBtn, updateConnectionStatus } from "./main.js";
+import { init as addrInit, chainInfo, chainId } from './addr.js';
+import { params, prepConnectBtn } from "./main.js";
 import { showErrors, reloadClient, checkRemainingApproval, checkMehBalance, shortenNumber, removeApproval } from './common.js';
-import { approveMeh } from './store.js';
+import { approveMeh, displayProducts } from './store.js';
 
 export async function init() {
     // this returns the provider, or null if it wasn't detected
@@ -51,9 +51,46 @@ async function startApp(_provider) {
         });
 }
 
+function updateConnectionStatus(_status = 'static') {
+    if (_status == 'read' && params.connection != 'read') { // we've just switched to read
+        displayProducts(true);
+        if (params.connection != 'write') {
+            //updateLiveProductData();
+        } else {
+            reloadClient()
+        }
+        params.connection = 'read';
+    } else if (_status == 'write' && params.connection != 'write') { // we've just switched to write
+        displayProducts(true);
+        if (params.connection != 'read') {
+            //updateLiveProductData();
+        }
+        //checkForContracts()
+        showConnected()
+        params.connection = 'write';
+    } else if (_status == 'static' && params.connection != 'static') {  // we've just switched to static
+        reloadClient()
+    } else {
+        throw new Error(`Trying to switch to/from an unknown connection type: ${params.connection} ... ${_status}`);
+    }
+}
+
 function handleChainChanged(_chainId) {
-    // When the chain changes, reload the page
-    reloadClient();
+    // Default when chain changes, reload the page
+    //reloadClient();
+    console.log('chain changed to ', _chainId);
+    if (params.preferredNetwork != _chainId) {
+        throw new Error(`Try switching to a supported chain. ${_chainId} not supported`);    
+    };
+}
+
+function showConnected() {
+    document.body.classList.add("connected");
+    document.body.classList.remove("disconnected");
+    params.walletDiv.innerText = 'Connected';
+    params.walletDiv.removeEventListener("click", connect);
+//    console.info(`output meh token balance and approval amount`);
+//    tokenDisplay();
 }
 
 // 'eth_accounts' returns an array
@@ -103,7 +140,7 @@ async function switchNetwork(_chainId = params.preferredNetwork) {
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: _chainId }]
         }).then((out) => {
-            handleChainChanged(null);
+            handleChainChanged(_chainId);
         }).catch((e) => {
             if (e.code === 4902) {
                 //                helpChain(_chainId);
