@@ -8,7 +8,8 @@ import {
     web3,
     MEHToken,
     MEHVote,
-    USDCToken
+    USDCToken,
+    MEHStore
 } from './addr.js';
 import { product } from './product.js';
 import { cleanBigInt, getAccounts, showErrors, showSuccess } from './common.js';
@@ -34,6 +35,7 @@ export async function loadStaticProductData() {
             for (const _product of data) {
                 products.push(new product({
                     id: Number(_product.id),
+                    storeId: Number(_product.storeId),
                     name: _product.name,
                     contractsDeposited: _product.mehContractsDeposited ? Number(_product.mehContractsDeposited) : null, // meh contracts deposited
                     mehContracts: Number(_product.mehContracts),
@@ -237,7 +239,43 @@ export async function approveUSDC(amt) {
     }).then(result => {
         showSuccess('approve tx complete', result);
         params.transactionQueue.push(result);
-        //        updateMehApproval(amt);
+    }, error => {
+        showErrors(error.message)
+    }).finally(() => {
+        // any wrap-up actions
+    });
+
+    return txHash;
+}
+
+export async function purchaseProductNFT(_productID) {
+    let gas = {}
+    try {
+        gas = await calcGas({
+            account: params.account,
+            context: MEHStore.methods,
+            func: 'purchaseProduct',
+            args: [_productID, '']
+        })
+    } catch (e) {
+        showErrors(`${e.message}`);
+        return;
+    };
+
+    const tx = {
+        'from': params.account,
+        'to': MEH_STORE,
+        'data': MEHStore.methods.purchaseProduct(_productID, '').encodeABI(),
+        'gas': web3.utils.toHex(gas.estimatedGas),
+        'gasPrice': web3.utils.toHex(gas.gasPrice)
+    };
+
+    const txHash = await params.provider.request({
+        method: 'eth_sendTransaction',
+        params: [tx],
+    }).then(result => {
+        showSuccess('approve tx complete', result);
+        params.transactionQueue.push(result);
     }, error => {
         showErrors(error.message)
     }).finally(() => {
