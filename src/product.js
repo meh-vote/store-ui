@@ -86,22 +86,16 @@ export class product {
             this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
                 //buyNFT(this.id);
                 evt.stopImmediatePropagation();
-//                window.alert(`Starting purchase process`);
-//                console.log(params.connection);
-//                if (params.connection != 'write' || params.currNetwork != params.preferredNetwork) {
                     await getConnectionReady()
                 .then(() => {
                     console.log(`Connection ready`);
+                    checkUSDC();
+                    //is there enough USDC?
+                    //is there (enough) approval?
                 }).catch((e) => {
                     console.log('connection issue:', e)
                     showErrors(e.message);
                 });
-        
-//                } else {
-                    checkUSDC();
-                    //is there enough USDC?
-                    //is there (enough) approval?
-//                };
             })
 
             if (this.contractsOwned && this.contractsOwned > 0) {

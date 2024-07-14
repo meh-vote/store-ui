@@ -16,8 +16,8 @@ library.add(faCirclePlus, faTrashCan);
 dom.watch();
 
 export const params = {
-    //    preferredNetwork: '0x14a34', // Sepolia
-    preferredNetwork: '0x2105', // Base
+    preferredNetwork: '0x14a34', // Sepolia
+    //preferredNetwork: '0x2105', // Base
     onPreferredNetwork: null,
     currNetwork: null,
     gameId: 1,
