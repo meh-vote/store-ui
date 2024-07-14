@@ -199,15 +199,9 @@ function truncAddr(addr, limit = 4) {
     return shortAddr;
 };
 
-export function checkUSDC() {
-    console.log(`TO DO: checkUSDC()`);
-    return;
-}
-
 export async function tokenDisplay() {
     const displayDiv = document.getElementById('wallet');
     params.currApproval = await checkRemainingApproval(params.account);
-//    params.currMehBalance = await MEHToken.methods.balanceOf(currWallet).call().then((result) => {return cleanBigInt(result,params.tokenScale)});
     params.currMehBalance = await checkMehBalance(params.account);
 
     displayDiv.insertAdjacentHTML('beforeend',

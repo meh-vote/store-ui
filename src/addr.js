@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 //import { switchNetwork } from './wallet.js';
-import { abiVote, abiMeh, abiRoyalty, abiStoreV1, abiStoreNFT, abiUSDC } from './abi.js';
+import { abiVote, abiERC20, abiRoyalty, abiStoreV1, abiStoreNFT } from './abi.js';
 import { params } from './main.js';
 
 export let MEH_FAUCET;
@@ -42,8 +42,8 @@ export async function init() {
         MEH_ROYALTY = "0x177C84EcDd00224d0b7B34e78De1bb7927b1d2B3";
         MEH_VOTE = "0xAC42e62be97abeAb7775cC4Bae84d0DB4223C508";
         USDC_TOKEN = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
-        MEH_STORE = "0x06ad353D0B495CFBdE81170602721d069ed74d43"
-        MEH_STORE_NFT = "0xD83090A8677a8e913A87D73e11B5816310763A35"
+        MEH_STORE_NFT = "0xBBE76f672d98c7Db1e580e6a73Ae5603cb4FD701"
+        MEH_STORE = "0x92f1EE669f76e9ada53F41D2a9e27c6558d10F85"
         apiKey = "GBfdhUAKP01Zmxr9l8JybRbAnEH7YRb9";
         alchemy = "https://base-sepolia.g.alchemy.com/v2/";
         etherscan = "sepolia.basescan.org";
@@ -67,10 +67,12 @@ export async function init() {
 //        await switchNetwork(); // should check whether window is active or not
     }
 
-    USDCToken = new web3.eth.Contract(abiUSDC, USDC_TOKEN);
-    MEHToken = new web3.eth.Contract(abiMeh, MEH_TOKEN);
+    USDCToken = new web3.eth.Contract(abiERC20, USDC_TOKEN);
+    MEHToken = new web3.eth.Contract(abiERC20, MEH_TOKEN);
     MEHVote = new web3.eth.Contract(abiVote, MEH_VOTE);
     MEHRoyalty = new web3.eth.Contract(abiRoyalty, MEH_ROYALTY);
     MEHStore = new web3.eth.Contract(abiStoreV1, MEH_STORE);
     MEHStoreNFT = new web3.eth.Contract(abiStoreNFT, MEH_STORE_NFT);
+
 };
+

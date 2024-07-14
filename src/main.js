@@ -26,6 +26,7 @@ export const params = {
     contentDiv: document.getElementById("content"),
     walletDiv: document.getElementById("wallet_status"),
     tokenScale: 1000000000000000000,
+    USDCScale: 1000000,
     assumedContracts: 1,
     gameStatus: 2, // 0 = not started, 1 = started, 2 = ended
     transactionQueue: [],

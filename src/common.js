@@ -1,5 +1,5 @@
 import { params } from "./main.js";
-import { MEHToken, MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
+import { MEHToken, USDCToken,MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
 
 export function cleanBigInt(_bigInt, _divisor = 1) {
     return Math.round(Number(_bigInt) / _divisor);
@@ -163,6 +163,11 @@ export async function checkRemainingApproval(_wallet) {
 
 export async function checkMehBalance(_wallet) {
     let balance = await MEHToken.methods.balanceOf(_wallet).call().then((result) => {return cleanBigInt(result,params.tokenScale)});
+    return balance;
+};
+
+export async function checkUSDCBalance(_wallet) {
+    let balance = await USDCToken.methods.balanceOf(_wallet).call().then((result) => {return cleanBigInt(result,params.USDCScale)});
     return balance;
 };
 

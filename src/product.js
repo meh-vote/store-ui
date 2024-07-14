@@ -1,7 +1,7 @@
-import { shortenNumber, showErrors } from './common.js';
+import { shortenNumber, showErrors, checkUSDCBalance } from './common.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
-import { getConnectionReady, checkUSDC } from './wallet.js';
+import { getConnectionReady } from './wallet.js';
 
 export class product {
     constructor({
@@ -87,11 +87,18 @@ export class product {
                 //buyNFT(this.id);
                 evt.stopImmediatePropagation();
                     await getConnectionReady()
-                .then(() => {
-                    console.log(`Connection ready`);
-                    checkUSDC();
+                .then(async () => {
+//                    console.log(`Connection ready`);
                     //is there enough USDC?
-                    //is there (enough) approval?
+                    let usdcBalance = await checkUSDCBalance(params.account);
+                    if (this.usdcPrice < usdcBalance) {
+                        showErrors('Not enough USDC');
+                        throw new Error('Not enough USDC');
+                    } else {
+                        console.log(`USDC balance: ${usdcBalance}`);
+                    };
+                    //get approval?
+                    //buy NFT
                 }).catch((e) => {
                     console.log('connection issue:', e)
                     showErrors(e.message);
