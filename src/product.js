@@ -2,6 +2,7 @@ import { shortenNumber, showErrors, checkUSDCBalance } from './common.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
 import { getConnectionReady } from './wallet.js';
+import { approveUSDC } from './store.js';
 
 export class product {
     constructor({
@@ -24,14 +25,14 @@ export class product {
         this.name = name;
         this.contractsDeposited = contractsDeposited; // meh contracts deposited
         this.mehContracts = isNaN(mehContracts) ? 0 : mehContracts;
-        this.contractPrice = isNaN(contractPrice) ? null : (contractPrice < 1)? 1 : contractPrice;
+        this.contractPrice = isNaN(contractPrice) ? null : (contractPrice < 1) ? 1 : contractPrice;
         this.prizeMeh = prizeMeh;
         this.mehStore = mehStore;
         this.usdcPrice = usdcPrice;
         this.begin = Number(begin) * 1000;
         this.end = Number(end) * 1000;
-        this.remainingContracts = (mehContracts && contractsDeposited)?((mehContracts && (mehContracts - contractsDeposited) > 0)?mehContracts - contractsDeposited:0):null;
-        this.soldOut = (this.remainingContracts && this.remainingContracts == 0)?true:false;
+        this.remainingContracts = (mehContracts && contractsDeposited) ? ((mehContracts && (mehContracts - contractsDeposited) > 0) ? mehContracts - contractsDeposited : 0) : null;
+        this.soldOut = (this.remainingContracts && this.remainingContracts == 0) ? true : false;
         this.limitedRun = limitedRun;
         this.html = null;
         this.image = `/images/product/id_${this.id}.png`;
@@ -41,8 +42,8 @@ export class product {
         this.contractsOwned = null;
         this.saleStatus = saleStatus;
         this.preorderMin = order_min;
-// Need to hold on displaying the remaining contracts until we have a read connection and check the live data
-//        console.log(`contractsDeposited ${this.contractsDeposited}`)
+        // Need to hold on displaying the remaining contracts until we have a read connection and check the live data
+        //        console.log(`contractsDeposited ${this.contractsDeposited}`)
     };
 
     genHtml() {
@@ -50,35 +51,35 @@ export class product {
         this.html.className = 'product';
         this.html.style.backgroundImage = `url(${this.image})`;
         this.html.id = `product_${this.id}`;
-/*        if (params.provider) {
-            this.html.insertAdjacentHTML('afterbegin', `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`);
-        };
-*//*        this.html.insertAdjacentHTML('beforeend',
-        `<div class="desc">
-            <div class="title">
-                <div>${this.name}</div>
-            </div>
-            <div class="action">
-                <div>${shortenNumber(this.contractPrice,0)} USDC</div>
-                ${(params.provider)
-                    ?`<div>Preorder sales</div>`
-                    :`<div>Provider required to check preorder status</div>`
+        /*        if (params.provider) {
+                    this.html.insertAdjacentHTML('afterbegin', `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`);
+                };
+        *//*        this.html.insertAdjacentHTML('beforeend',
+                `<div class="desc">
+                    <div class="title">
+                        <div>${this.name}</div>
+                    </div>
+                    <div class="action">
+                        <div>${shortenNumber(this.contractPrice,0)} USDC</div>
+                        ${(params.provider)
+                            ?`<div>Preorder sales</div>`
+                            :`<div>Provider required to check preorder status</div>`
+                        }
+                    </div>
+                </div>`);
+        */
+        /*        if (this.soldOut) {
+                    this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
+                } else if (this.activeStatus == 0) {
+                    this.html.insertAdjacentHTML('beforeend', `<div class="message"><div class="success small_text">Opens<br />${new Date(this.begin).toLocaleString()}</div></div>`);
+                } else if (this.activeStatus == 2) {
+                    this.html.insertAdjacentHTML('beforeend', `<div class="alert small_text">Voting Closed</div>`);
+                } else if (this.activeStatus == 1 && this.soldOut == false) {
+                    this.html.addEventListener('click', () => vote(this.id))
                 }
-            </div>
-        </div>`);
-*/
-/*        if (this.soldOut) {
-            this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
-        } else if (this.activeStatus == 0) {
-            this.html.insertAdjacentHTML('beforeend', `<div class="message"><div class="success small_text">Opens<br />${new Date(this.begin).toLocaleString()}</div></div>`);
-        } else if (this.activeStatus == 2) {
-            this.html.insertAdjacentHTML('beforeend', `<div class="alert small_text">Voting Closed</div>`);
-        } else if (this.activeStatus == 1 && this.soldOut == false) {
-            this.html.addEventListener('click', () => vote(this.id))
-        }
-*/
+        */
 
-// FOR STYLING, SHOW AS PRESALE STATE
+        // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
             this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
 
@@ -86,23 +87,26 @@ export class product {
             this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
                 //buyNFT(this.id);
                 evt.stopImmediatePropagation();
-                    await getConnectionReady()
-                .then(async () => {
+                await getConnectionReady()
+                    .then(async () => {
 //                    console.log(`Connection ready`);
-                    //is there enough USDC?
-                    let usdcBalance = await checkUSDCBalance(params.account);
-                    if (this.usdcPrice < usdcBalance) {
-                        showErrors('Not enough USDC');
-                        throw new Error('Not enough USDC');
-                    } else {
-                        console.log(`USDC balance: ${usdcBalance}`);
-                    };
-                    //get approval?
-                    //buy NFT
-                }).catch((e) => {
-                    console.log('connection issue:', e)
-                    showErrors(e.message);
-                });
+                        //is there enough USDC?
+                        let usdcBalance = await checkUSDCBalance(params.account);
+                        if (this.usdcPrice < usdcBalance) {
+                            showErrors('Not enough USDC');
+                            throw new Error('Not enough USDC');
+                        } else {
+                            console.log(`USDC balance: ${usdcBalance}`);
+                        };
+                        //get approval?
+                        await approveUSDC(this.usdcPrice).catch((e) => {
+                            throw new Error(e.message);
+                        });
+                        //buy NFT
+                    }).catch((e) => {
+                        console.log('connection issue:', e)
+                        showErrors(e.message);
+                    });
             })
 
             if (this.contractsOwned && this.contractsOwned > 0) {
@@ -123,28 +127,28 @@ export class product {
     }
 
     async asyncInit() {
-        await fetch(this.image, {method: 'HEAD'})
-        .then((res) => {
-            if (!res.ok) {
-                this.image = `/images/product/id_0.png`;
-            };
-        })
-        .catch((err) => {console.info(err)});
+        await fetch(this.image, { method: 'HEAD' })
+            .then((res) => {
+                if (!res.ok) {
+                    this.image = `/images/product/id_0.png`;
+                };
+            })
+            .catch((err) => { console.info(err) });
         this.genHtml();
-//        console.log(this.html)
+        //        console.log(this.html)
     }
 
     setActiveState() {
         var now = new Date().getTime();
-        this.activeStatus = (this.begin < now && now < this.end)? 1 :
-            (this.begin > now)? 0 : 2;
+        this.activeStatus = (this.begin < now && now < this.end) ? 1 :
+            (this.begin > now) ? 0 : 2;
     }
 
     async checkForOwnedContracts() {
-        this.contractsOwned = Number(await MEHVote.methods.deposits(params.account,web3.utils.padLeft(web3.utils.numberToHex(this.id),40)).call());
+        this.contractsOwned = Number(await MEHVote.methods.deposits(params.account, web3.utils.padLeft(web3.utils.numberToHex(this.id), 40)).call());
     }
 
-    updateContracts({_deposited = null, _owned = null}) {
+    updateContracts({ _deposited = null, _owned = null }) {
         if (_deposited) {
             this.contractsDeposited = _deposited
             this.remainingContracts = this.mehContracts - this.contractsDeposited;
