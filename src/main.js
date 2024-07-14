@@ -5,6 +5,7 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 import {
     loadStaticProductData,
+//     updateTransactionQueue,
     displayProducts,
     updateLiveProductData,
     checkForContracts
@@ -43,6 +44,7 @@ export const params = {
 await loadStaticProductData();
 await prepConnectBtn();
 await walletInit();
+//updateTransactionQueue();
 
 export function prepConnectBtn() {
     document.body.classList.add("disconnected");

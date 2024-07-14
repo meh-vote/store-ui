@@ -2,7 +2,12 @@ import { shortenNumber, showErrors, checkUSDCBalance } from './common.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
 import { getConnectionReady } from './wallet.js';
-import { approveUSDC, purchaseProductNFT } from './store.js';
+import {
+    approveUSDC
+    ,purchaseProductNFT
+//    ,waitForEmptyQueue
+    ,waitForTx
+} from './store.js';
 
 export class product {
     constructor({
@@ -98,14 +103,17 @@ export class product {
                             showErrors('Not enough USDC');
                             throw new Error('Not enough USDC');
                         } else {
-                            console.log(`USDC balance: ${usdcBalance}`);
+                            console.info(`USDC balance: ${usdcBalance}`);
                         };
-                        //get approval?
-                        await approveUSDC(this.usdcPrice).catch((e) => {
-                            throw new Error(e.message);
-                        });
-                        //buy NFT
-                        await purchaseProductNFT(this.storeId).catch((e) => {
+                        approveUSDC(this.usdcPrice).then(async (tx) => {
+                            await waitForTx(tx).then(async () => {
+                                await purchaseProductNFT(this.storeId).catch((e) => { //buy NFT
+                                    throw new Error(e.message);
+                                });
+                            }).catch((e) => {
+                                throw new Error(e.message);
+                            });    
+                        }).catch((e) => { //get approval
                             throw new Error(e.message);
                         });
                     }).catch((e) => {

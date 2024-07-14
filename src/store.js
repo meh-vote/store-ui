@@ -82,7 +82,7 @@ export async function displayProducts(regenHTML = false) {
     };
 }
 
-export function updateTransactionQueue() {
+/*export function updateTransactionQueue() {
     var x = setInterval(function () { checkTransactionQueue(); }, 120000); // Check for completion of pending txs every 2 minutes
 }
 
@@ -109,6 +109,55 @@ async function checkTransactionQueue() {
         console.info("No pending txs");
     }
 }
+
+export async function waitForEmptyQueue(_maxWait = 30) { //max wait in seconds
+    let interval = 2; // loop speed in seconds
+    for (let i = 0; i < (_maxWait / interval) && params.transactionQueue.length > 0; i++) {
+        setTimeout(async () =>{ await checkTransactionQueue(); }, interval * 1000);
+    };
+    if (params.transactionQueue.length > 0) {
+        throw new Error(`transaction queue not empty after ${_maxWait} seconds`);
+    }
+    return;
+}
+*/
+
+function doSomething() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Other things to do before completion of the promise
+        console.log("Did something");
+        // The fulfillment value of the promise
+        resolve("https://example.com/");
+      }, 200);
+    });
+  }
+
+
+export async function waitForTx(_txId,_maxWait = 30) { //max wait in seconds
+    return new Promise((resolve, reject) => {
+        console.log("waitForTx",_txId,_maxWait);
+        let loopSpeed = 2; // loop speed in seconds
+        //const txComplete = false;
+        const timer = setTimeout(() => {
+            reject(new Error(`transaction not complete after ${_maxWait} seconds`));
+        }, _maxWait * 1000);
+        const interval = setInterval(() => { 
+            ethereum.request({
+                "method": "eth_getTransactionReceipt",
+                "params": [_txId]
+            }).then(function (receipt) {
+                if (receipt) {
+//                    console.info(`transaction complete: ${_txId}`,receipt);
+                    clearTimeout(timer);
+                    clearInterval(interval);
+                    resolve();
+                }
+            });
+        }, loopSpeed * 1000);
+        console.info(`waiting for tx`);
+    });
+};
 
 /*export async function vote(_productId) {
     const accounts = await getAccounts();
@@ -233,18 +282,16 @@ export async function approveUSDC(amt) {
         'gasPrice': web3.utils.toHex(gas.gasPrice)
     };
 
-    const txHash = await params.provider.request({
+    let txHash = await params.provider.request({
         method: 'eth_sendTransaction',
         params: [tx],
-    }).then(result => {
-        showSuccess('approve tx complete', result);
-        params.transactionQueue.push(result);
-    }, error => {
+    }).then((result) => {
+        return result;
+//        showSuccess('approve tx complete', result);
+//        params.transactionQueue.push(result);
+    }).catch((error) => {
         showErrors(error.message)
-    }).finally(() => {
-        // any wrap-up actions
     });
-
     return txHash;
 }
 
