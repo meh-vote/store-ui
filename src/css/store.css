@@ -23,7 +23,6 @@ body {
     overflow-x: hidden;
     line-height: 1.75rem;
     color: rgb(88 88 88);
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -76,6 +75,7 @@ body {
     background-repeat: no-repeat;
     background-position: 1rem center;
     text-align: right;
+    margin-top: 10px;
 }
 
 #header #links {
@@ -96,14 +96,14 @@ body {
 }
 
 #header #links {
-    margin-right: 20px;
     display: grid;
     justify-content: end;
     grid-auto-flow: column;
-    grid-template-columns: 48px 48px 48px 48px;
+    grid-template-columns: 48px 48px 48px;
     align-items: center;
     height: 100%;
     text-align: center;
+    width: calc(100% - 20px);
 }
 
 #links .basescan {
@@ -242,6 +242,7 @@ body {
     background-color: rgb(188 188 188 / 0.8);
     align-content: center;
     color: black;
+    top: 0;
 }
 
 body.overlay_on {
@@ -275,7 +276,7 @@ body.overlay_on #overlay {
     padding-right: 0.5rem;
     align-self: stretch;
     align-content: center;
-    display: grid;
+    display: none;
 }
 
 #wallet_status {
@@ -577,12 +578,12 @@ body.overlay_on #overlay {
 
 .product .contract_count,
 .product .buy_nft {
-    background: var(--success_color);
+    background: rgb( 63 63 63 / 1 );    
     position: absolute;
     top: -1rem;
     right: -1rem;
     z-index: 2;
     padding: 0.5rem 1rem;
-    box-shadow: 5px 5px rgb(63 63 63 / 1);
+    box-shadow: 5px 5px var(--alert_color);
     font-weight: bold;
 }

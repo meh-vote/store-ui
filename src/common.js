@@ -35,6 +35,7 @@ export function showErrors(_message, _stop = false) {
     } else {
         setTimeout(() => {
             document.getElementById("overlay").remove();
+            document.body.classList.remove("overlay_on");
         }, 5000);
     }
 }
@@ -52,6 +53,7 @@ export function showSuccess(_message, link = null) {
 
     setTimeout(() => {
         document.getElementById("overlay").remove();
+        document.body.classList.remove("overlay_on");
     }, 5000);
 //console.log(_message);
 }

@@ -1,18 +1,57 @@
-import { params, sharedData } from './main.js';
-import { calcGas } from './common.js';
+import { params } from './main.js';
 import {
     MEH_VOTE,
     MEH_TOKEN,
     MEH_STORE,
+    MEH_STORE_NFT,
     USDC_TOKEN,
     web3,
     MEHToken,
     MEHVote,
     USDCToken,
-    MEHStore
+    MEHStore,
+    MEHStoreNFT
 } from './addr.js';
 import { product } from './product.js';
-import { cleanBigInt, getAccounts, showErrors, showSuccess } from './common.js';
+import {
+    calcGas
+    ,checkUSDCBalance
+    ,cleanBigInt
+    ,getAccounts
+    ,showErrors
+    ,showSuccess
+} from './common.js';
+import { getConnectionReady } from './wallet.js';
+
+import CryptoJS from 'crypto-js';
+
+async function cryptoTest() {
+    const address = '742 Evergreen Terrace, Springfield, OR 97475';
+    const secretKey = 'that-gum-you-like-is-coming-back-in-style';
+    let encrypted;
+    try {
+        encrypted = await CryptoJS.AES.encrypt(address, secretKey).toString(); 
+    } catch (e) {
+        console.log('decrypt error:', e);
+    }
+    console.log('encrypted:', encrypted);
+    window.MEHStoreNFT = MEHStoreNFT;
+    await MEHStoreNFT.methods.enterDeliveryAddress(
+        3,  // NFT id
+        encrypted
+    ).call().then((x)=>{console.log('enterDeliveryAddress:',x)});
+/*
+
+    const details = await mehStoreNFT.nftDetails(0);
+    console.log(details);
+
+    const bytes = CryptoJS.AES.decrypt(details.deliveryAddress, secretKey);
+    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+
+    console.log(decryptedString);
+*/
+}
+window.cryptoTest = cryptoTest;
 
 let products = [];
 
@@ -82,61 +121,9 @@ export async function displayProducts(regenHTML = false) {
     };
 }
 
-/*export function updateTransactionQueue() {
-    var x = setInterval(function () { checkTransactionQueue(); }, 120000); // Check for completion of pending txs every 2 minutes
-}
-
-async function checkTransactionQueue() {
-    if (params.transactionQueue && params.transactionQueue.length > 0) {
-        for (let i = params.transactionQueue.length - 1; i >= 0; i--) {
-            ethereum.request({
-                "method": "eth_getTransactionReceipt",
-                "params": [params.transactionQueue[i]]
-            }).then(function (receipt) {
-                if (receipt != null) {
-                    console.info(`transaction complete: ${params.transactionQueue[i]}`);
-                    params.transactionQueue.splice(i, 1);
-                    params.updatesOnChain = true;
-                }
-            });
-        };
-        if (params.updatesOnChain && params.transactionQueue.length == 0) {
-            loadStaticProductData();
-            params.updatesOnChain = false;
-            console.log("loaded new updates from chain");
-        }
-    } else {
-        console.info("No pending txs");
-    }
-}
-
-export async function waitForEmptyQueue(_maxWait = 30) { //max wait in seconds
-    let interval = 2; // loop speed in seconds
-    for (let i = 0; i < (_maxWait / interval) && params.transactionQueue.length > 0; i++) {
-        setTimeout(async () =>{ await checkTransactionQueue(); }, interval * 1000);
-    };
-    if (params.transactionQueue.length > 0) {
-        throw new Error(`transaction queue not empty after ${_maxWait} seconds`);
-    }
-    return;
-}
-*/
-
-function doSomething() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Other things to do before completion of the promise
-        console.log("Did something");
-        // The fulfillment value of the promise
-        resolve("https://example.com/");
-      }, 200);
-    });
-  }
-
-
 export async function waitForTx(_txId,_maxWait = 30) { //max wait in seconds
     return new Promise((resolve, reject) => {
-        console.log("waitForTx",_txId,_maxWait);
+//        console.log("waitForTx",_txId,_maxWait);
         let loopSpeed = 2; // loop speed in seconds
         //const txComplete = false;
         const timer = setTimeout(() => {
@@ -158,60 +145,6 @@ export async function waitForTx(_txId,_maxWait = 30) { //max wait in seconds
         console.info(`waiting for tx`);
     });
 };
-
-/*export async function vote(_productId) {
-    const accounts = await getAccounts();
-    const productCost = products.find(product => product.id == _productId).contractPrice;
-    if (accounts.length <= 0) {
-        showErrors("connect a provider like metamask");
-        throw new Error("connect to metamask");
-    }
-
-    if (sharedData.currApproval < productCost) {
-        showErrors("Approval insufficient for product<br />approve more from link in header");
-        throw new Error("Approval insufficient for product");
-    }
-
-    if (sharedData.currMehBalance < productCost) {
-        showErrors("Insufficient Meh for product<br />buy more from link in header");
-        throw new Error("Insufficient Meh for product");
-    }
-
-    let gas = {}
-    try {
-        gas = await calcGas({
-            account: accounts[0],
-            context: MEHVote.methods,
-            func: 'depositMeh',
-            args: [params.gameId, _productId, params.assumedContracts]
-        })
-    } catch (e) {
-        showErrors(`${e.message}`);
-        return;
-    };
-
-    const tx = {
-        'from': accounts[0],
-        'to': MEH_VOTE,
-        'data': MEHVote.methods.depositMeh(params.gameId, _productId, params.assumedContracts).encodeABI(),
-        'gas': web3.utils.toHex(gas.estimatedGas),
-        'gasPrice': web3.utils.toHex(gas.gasPrice)
-    };
-
-    const txHash = await params.provider.request({
-        method: 'eth_sendTransaction',
-        params: [tx],
-    }).then(async result => {
-        showSuccess('approve tx complete', result);
-        params.transactionQueue.push(result);
-    }, error => {
-        showErrors(error.message)
-    }).finally(() => {
-        // any wrap-up actions
-    });
-
-    return txHash;
-};*/
 
 export async function approveMeh(amt) {
     const accounts = await getAccounts();
@@ -258,7 +191,7 @@ export async function approveMeh(amt) {
     return txHash;
 }
 
-export async function approveUSDC(amt) {
+async function approveUSDC(amt) {
     var amtWei = web3.utils.toWei(amt.toString(), 'mwei');
 
     let gas = {}
@@ -287,10 +220,77 @@ export async function approveUSDC(amt) {
         params: [tx],
     }).then((result) => {
         return result;
-//        showSuccess('approve tx complete', result);
-//        params.transactionQueue.push(result);
     }).catch((error) => {
-        showErrors(error.message)
+        showErrors(error.message);
+        throw error;
+    });
+    return txHash;
+}
+
+export async function approveMehNFT() {
+    let gas = {}
+    try {
+        gas = await calcGas({
+            account: params.account,
+            context: MEHStoreNFT.methods,
+            func: 'setApprovalForAll',
+            args: [MEH_STORE, true]
+        })
+    } catch (e) {
+        showErrors(`${e.message}`);
+        return;
+    };
+
+    const tx = {
+        'from': params.account,
+        'to': MEH_STORE_NFT,
+        'data': MEHStoreNFT.methods.setApprovalForAll(MEH_STORE, true).encodeABI(),
+        'gas': web3.utils.toHex(gas.estimatedGas),
+        'gasPrice': web3.utils.toHex(gas.gasPrice)
+    };
+
+    let txHash = await params.provider.request({
+        method: 'eth_sendTransaction',
+        params: [tx],
+    }).then((result) => {
+        return result;
+    }).catch((error) => {
+        showErrors(error.message);
+        throw error;
+    });
+    return txHash;
+}
+
+export async function NFTtoProduct({_nftId, _address}) {
+    let gas = {}
+    try {
+        gas = await calcGas({
+            account: params.account,
+            context: MEHStoreNFT.methods,
+            func: 'enterDeliveryAddress',
+            args: [_nftId, _address]
+        })
+    } catch (e) {
+        showErrors(`${e.message}`);
+        return;
+    };
+
+    const tx = {
+        'from': params.account,
+        'to': MEH_STORE_NFT,
+        'data': MEHStoreNFT.methods.enterDeliveryAddress(_nftId, _address).encodeABI(),
+        'gas': web3.utils.toHex(gas.estimatedGas),
+        'gasPrice': web3.utils.toHex(gas.gasPrice)
+    };
+
+    let txHash = await params.provider.request({
+        method: 'eth_sendTransaction',
+        params: [tx],
+    }).then((result) => {
+        return result;
+    }).catch((error) => {
+        showErrors(error.message);
+        throw error;
     });
     return txHash;
 }
@@ -317,19 +317,77 @@ export async function purchaseProductNFT(_productID) {
         'gasPrice': web3.utils.toHex(gas.gasPrice)
     };
 
-    const txHash = await params.provider.request({
+    let txHash = await params.provider.request({
         method: 'eth_sendTransaction',
         params: [tx],
-    }).then(result => {
-        showSuccess('approve tx complete', result);
-        params.transactionQueue.push(result);
-    }, error => {
-        showErrors(error.message)
-    }).finally(() => {
-        // any wrap-up actions
+    }).then((result) => {
+        return result;
+    }).catch((error) => {
+        showErrors(error.message);
+        throw error;
     });
-
     return txHash;
+}
+
+export async function purchaseProcess({_USDCprice, _productId}) {
+console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
+// Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
+// might make sense to use toastify-js here, for steps/status, insteed of modal
+await getConnectionReady()
+    .then(async () => {
+        console.info('✓ connection ready');
+        let usdcBalance = await checkUSDCBalance(params.account);   // Check USDC balance
+        console.info(`✓ got usdcBalance (${usdcBalance})`);
+        if (_USDCprice > usdcBalance) {
+            showErrors('You do not have enough USDC in your wallet.');
+            throw new Error('Not enough USDC');
+        } else {
+            console.info(`✓ Sufficient USDC balance`);
+        };
+        approveUSDC(_USDCprice).then(async (tx) => {    // get USDC approval
+            console.info(`✓ USDC approved`);
+            await waitForTx(tx).then(async () => {
+                console.info(`✓ USDC approval tx complete on-chain`);
+                await purchaseProductNFT(_productId)
+                    .then(async (_tx) => {
+                        console.info(`✓ NFT purchased`);
+                        await waitForTx(_tx).then(async () => {
+                            console.info(`✓ NFT purchase tx complete on-chain`);
+                            await approveMehNFT().then(async (_tx) => {
+                                console.info(`✓ NFT approved`);
+                                await waitForTx(_tx).then(async () => {
+                                    console.info(`✓ NFT approval tx complete on-chain`);
+                                    //skip past form >>> json issues ftm, and send static addr to store
+                                    await NFTtoProduct({ _nftId: 3, _address: `{"name":"Pomegranate","email":"test@test.com"}`})
+                                        .then(async (_tx) => {
+                                            console.info(`✓ NFT submitted to store, with addr`);
+                                            console.info(`REMAINING STEP\n* generate and show form\n* collect delivery address\n* submit address with NFT\n* wait for tx success`);
+                                        }).catch((e) => {
+                                            throw new Error(e.message);
+                                        });
+                                }).catch((e) => {
+                                    throw new Error(e.message);
+                                    });
+                            }).catch((e) => {
+                                throw new Error(e.message);
+                            });
+                        }).catch((e) => {
+                            throw new Error(e.message);
+                        });
+                    })
+                    .catch((e) => { // purchase NFT
+                        throw new Error(e.message);
+                    });
+            }).catch((e) => {
+                throw new Error(e.message);
+            });    
+        }).catch((e) => {
+            throw new Error(e.message);
+        });
+    }).catch((e) => {
+        console.log('connection issue:', e)
+        showErrors(e.message);
+    });
 }
 
 export async function claim(_productId) {

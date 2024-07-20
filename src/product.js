@@ -1,13 +1,7 @@
-import { shortenNumber, showErrors, checkUSDCBalance } from './common.js';
+import { shortenNumber, showErrors } from './common.js';
 import { params } from './main.js';
 import { web3, MEHVote } from './addr.js';
-import { getConnectionReady } from './wallet.js';
-import {
-    approveUSDC
-    ,purchaseProductNFT
-//    ,waitForEmptyQueue
-    ,waitForTx
-} from './store.js';
+import { purchaseProcess } from './store.js';
 
 export class product {
     constructor({
@@ -90,36 +84,12 @@ export class product {
         if (this.saleStatus == 'active') {
             this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
 
-            this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY NFT</span>`);
+            this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY</span>`);
             this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
-                //buyNFT(this.id);
                 evt.stopImmediatePropagation();
-                await getConnectionReady()
-                    .then(async () => {
-//                    console.log(`Connection ready`);
-                        //is there enough USDC?
-                        let usdcBalance = await checkUSDCBalance(params.account);
-                        if (this.usdcPrice > usdcBalance) {
-                            showErrors('Not enough USDC');
-                            throw new Error('Not enough USDC');
-                        } else {
-                            console.info(`USDC balance: ${usdcBalance}`);
-                        };
-                        approveUSDC(this.usdcPrice).then(async (tx) => {
-                            await waitForTx(tx).then(async () => {
-                                await purchaseProductNFT(this.storeId).catch((e) => { //buy NFT
-                                    throw new Error(e.message);
-                                });
-                            }).catch((e) => {
-                                throw new Error(e.message);
-                            });    
-                        }).catch((e) => { //get approval
-                            throw new Error(e.message);
-                        });
-                    }).catch((e) => {
-                        console.log('connection issue:', e)
-                        showErrors(e.message);
-                    });
+                await purchaseProcess({_USDCprice: this.usdcPrice, _productId: this.storeId}).catch((e) => {
+                    showErrors(e.message);
+                });
             })
 
             if (this.contractsOwned && this.contractsOwned > 0) {
