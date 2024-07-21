@@ -189,8 +189,9 @@ async function getGasPrice() {
     return price;
 }
 
-export function addrForm() {
-    let div = document.createElement("div");
+export function addrForm(btn_label = 'Submit') {
+    return new Promise((resolve, reject) => {
+        let div = document.createElement("div");
     div.id = "overlay";
     document.body.insertAdjacentElement('beforeend', div);
     div.innerHTML = `<div class="wrapper" id="overlay_content">
@@ -467,7 +468,7 @@ export function addrForm() {
             <option value="ZW">Zimbabwe</option>
         </select> 
       </div>
-      <button>Send</button>
+      <button class="btn_meh_dark">Send</button>
     </form>
   </div>`;
     document.body.classList.add("overlay_on");
@@ -477,8 +478,20 @@ export function addrForm() {
     document.getElementById('close').addEventListener('click', () => {
         document.getElementById("overlay").remove();
         document.body.classList.remove("overlay_on");
-        throw new Error('User closed address form.');
+        reject(new Error('User closed address form.'));
     });
+
+    document.getElementById('get_address').addEventListener('submit', (_form) => {
+        _form.preventDefault();
+        document.getElementById("overlay").remove();
+        document.body.classList.remove("overlay_on");
+
+        const data = new FormData(_form.target);
+        const _form_data = Object.fromEntries(data.entries());
+        // the above only accounts for single-value fields/elements
+        resolve(_form_data);
+    });
+});
 }
 
 

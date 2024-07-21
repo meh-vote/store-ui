@@ -15,11 +15,11 @@ import {
 import { product } from './product.js';
 import {
     calcGas
-    , checkUSDCBalance
-    , cleanBigInt
-    , getAccounts
-    , showErrors
-    , showSuccess
+    ,checkUSDCBalance
+    ,cleanBigInt
+    ,getAccounts
+    ,showErrors
+    ,showSuccess
     ,addrForm
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
@@ -358,8 +358,8 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                                     console.info(`✓ NFT approved`);
                                     await waitForTx(_tx).then(async () => {
                                         console.info(`✓ NFT approval tx complete on-chain`);
-                                        await addrForm().then(async (_tx) => {
-                                            console.info(`✓ NFT submitted to store, with addr`);
+                                        await addrForm('Send').then(async (_form_data) => {
+                                            console.info(`✓ NFT submitted to store, with addr`, _form_data);
                                         })
                                     //skip past form >>> json issues ftm, and send static addr to store
 /*                                    await NFTtoProduct({ _nftId: 3, _address: `{"name":"Pomegranate","email":"test@test.com"}`})

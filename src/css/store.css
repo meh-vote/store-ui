@@ -257,7 +257,7 @@ body.overlay_on #overlay {
     border:5px solid black;
     background-color:white;
     position:relative;
-    width: 50%;
+    width: max(360px, 50%);
     margin: auto;
     box-shadow: 5px 5px white;
     min-height: 50%;
@@ -598,10 +598,20 @@ form#get_address label {
     font-size: small;
     text-align: left;
     line-height: 1rem;
+    font-weight: bold;
+}
+
+form#get_address input,
+form#get_address select {
+    font-size: 14px;
+    display: block;
 }
 
 form#get_address input {
-    display: block;
+    width: calc(100% - 7px);
+}
+
+form#get_address select {
     width: 100%;
 }
 
@@ -613,4 +623,13 @@ form#get_address ~ #close {
 
 form#get_address > div {
     margin-bottom: 1rem;
+}
+
+button.btn_meh_dark {
+    background: rgb(63 63 63 / 1);
+    padding: 0.5rem 1rem;
+    box-shadow: 5px 5px var(--alert_color);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
 }
