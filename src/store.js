@@ -15,11 +15,12 @@ import {
 import { product } from './product.js';
 import {
     calcGas
-    ,checkUSDCBalance
-    ,cleanBigInt
-    ,getAccounts
-    ,showErrors
-    ,showSuccess
+    , checkUSDCBalance
+    , cleanBigInt
+    , getAccounts
+    , showErrors
+    , showSuccess
+    ,addrForm
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
 
@@ -30,7 +31,7 @@ async function cryptoTest() {
     const secretKey = 'that-gum-you-like-is-coming-back-in-style';
     let encrypted;
     try {
-        encrypted = await CryptoJS.AES.encrypt(address, secretKey).toString(); 
+        encrypted = await CryptoJS.AES.encrypt(address, secretKey).toString();
     } catch (e) {
         console.log('decrypt error:', e);
     }
@@ -39,17 +40,17 @@ async function cryptoTest() {
     await MEHStoreNFT.methods.enterDeliveryAddress(
         3,  // NFT id
         encrypted
-    ).call().then((x)=>{console.log('enterDeliveryAddress:',x)});
-/*
-
-    const details = await mehStoreNFT.nftDetails(0);
-    console.log(details);
-
-    const bytes = CryptoJS.AES.decrypt(details.deliveryAddress, secretKey);
-    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
-
-    console.log(decryptedString);
-*/
+    ).call().then((x) => { console.log('enterDeliveryAddress:', x) });
+    /*
+    
+        const details = await mehStoreNFT.nftDetails(0);
+        console.log(details);
+    
+        const bytes = CryptoJS.AES.decrypt(details.deliveryAddress, secretKey);
+        const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+    
+        console.log(decryptedString);
+    */
 }
 window.cryptoTest = cryptoTest;
 
@@ -109,9 +110,9 @@ export async function loadStaticProductData() {
 
 export async function displayProducts(regenHTML = false) {
     params.contentDiv.innerHTML = '';
-    params.contentDiv.insertAdjacentHTML('beforeend',`<div id="products"></div>`);
+    params.contentDiv.insertAdjacentHTML('beforeend', `<div id="products"></div>`);
     const productsDiv = document.getElementById("products");
-    params.contentDiv.insertAdjacentHTML('beforeend',`<div id="coming_soon"></div>`);
+    params.contentDiv.insertAdjacentHTML('beforeend', `<div id="coming_soon"></div>`);
     const comingDiv = document.getElementById("coming_soon");
 
     for (const _product of products) {
@@ -121,21 +122,21 @@ export async function displayProducts(regenHTML = false) {
     };
 }
 
-export async function waitForTx(_txId,_maxWait = 30) { //max wait in seconds
+export async function waitForTx(_txId, _maxWait = 30) { //max wait in seconds
     return new Promise((resolve, reject) => {
-//        console.log("waitForTx",_txId,_maxWait);
+        //        console.log("waitForTx",_txId,_maxWait);
         let loopSpeed = 2; // loop speed in seconds
         //const txComplete = false;
         const timer = setTimeout(() => {
             reject(new Error(`transaction not complete after ${_maxWait} seconds`));
         }, _maxWait * 1000);
-        const interval = setInterval(() => { 
+        const interval = setInterval(() => {
             ethereum.request({
                 "method": "eth_getTransactionReceipt",
                 "params": [_txId]
             }).then(function (receipt) {
                 if (receipt) {
-//                    console.info(`transaction complete: ${_txId}`,receipt);
+                    //                    console.info(`transaction complete: ${_txId}`,receipt);
                     clearTimeout(timer);
                     clearInterval(interval);
                     resolve();
@@ -261,7 +262,7 @@ export async function approveMehNFT() {
     return txHash;
 }
 
-export async function NFTtoProduct({_nftId, _address}) {
+export async function NFTtoProduct({ _nftId, _address }) {
     let gas = {}
     try {
         gas = await calcGas({
@@ -329,65 +330,68 @@ export async function purchaseProductNFT(_productID) {
     return txHash;
 }
 
-export async function purchaseProcess({_USDCprice, _productId}) {
-console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
-// Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
-// might make sense to use toastify-js here, for steps/status, insteed of modal
-await getConnectionReady()
-    .then(async () => {
-        console.info('✓ connection ready');
-        let usdcBalance = await checkUSDCBalance(params.account);   // Check USDC balance
-        console.info(`✓ got usdcBalance (${usdcBalance})`);
-        if (_USDCprice > usdcBalance) {
-            showErrors('You do not have enough USDC in your wallet.');
-            throw new Error('Not enough USDC');
-        } else {
-            console.info(`✓ Sufficient USDC balance`);
-        };
-        approveUSDC(_USDCprice).then(async (tx) => {    // get USDC approval
-            console.info(`✓ USDC approved`);
-            await waitForTx(tx).then(async () => {
-                console.info(`✓ USDC approval tx complete on-chain`);
-                await purchaseProductNFT(_productId)
-                    .then(async (_tx) => {
-                        console.info(`✓ NFT purchased`);
-                        await waitForTx(_tx).then(async () => {
-                            console.info(`✓ NFT purchase tx complete on-chain`);
-                            await approveMehNFT().then(async (_tx) => {
-                                console.info(`✓ NFT approved`);
-                                await waitForTx(_tx).then(async () => {
-                                    console.info(`✓ NFT approval tx complete on-chain`);
+export async function purchaseProcess({ _USDCprice, _productId }) {
+    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
+    // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
+    // might make sense to use toastify-js here, for steps/status
+    await getConnectionReady()
+        .then(async () => {
+            console.info('✓ connection ready');
+            let usdcBalance = await checkUSDCBalance(params.account);   // Check USDC balance
+            console.info(`✓ got usdcBalance (${usdcBalance})`);
+            if (_USDCprice > usdcBalance) {
+                showErrors('You do not have enough USDC in your wallet.');
+                throw new Error('Not enough USDC');
+            } else {
+                console.info(`✓ Sufficient USDC balance`);
+            };
+            approveUSDC(_USDCprice).then(async (tx) => {    // get USDC approval
+                console.info(`✓ USDC approved`);
+                await waitForTx(tx).then(async () => {
+                    console.info(`✓ USDC approval tx complete on-chain`);
+                    await purchaseProductNFT(_productId)
+                        .then(async (_tx) => {
+                            console.info(`✓ NFT purchased`);
+                            await waitForTx(_tx).then(async () => {
+                                console.info(`✓ NFT purchase tx complete on-chain`);
+                                await approveMehNFT().then(async (_tx) => {
+                                    console.info(`✓ NFT approved`);
+                                    await waitForTx(_tx).then(async () => {
+                                        console.info(`✓ NFT approval tx complete on-chain`);
+                                        await addrForm().then(async (_tx) => {
+                                            console.info(`✓ NFT submitted to store, with addr`);
+                                        })
                                     //skip past form >>> json issues ftm, and send static addr to store
-                                    await NFTtoProduct({ _nftId: 3, _address: `{"name":"Pomegranate","email":"test@test.com"}`})
+/*                                    await NFTtoProduct({ _nftId: 3, _address: `{"name":"Pomegranate","email":"test@test.com"}`})
                                         .then(async (_tx) => {
                                             console.info(`✓ NFT submitted to store, with addr`);
                                             console.info(`REMAINING STEP\n* generate and show form\n* collect delivery address\n* submit address with NFT\n* wait for tx success`);
                                         }).catch((e) => {
                                             throw new Error(e.message);
                                         });
+*/                                }).catch((e) => {
+                                            throw new Error(e.message);
+                                        });
                                 }).catch((e) => {
                                     throw new Error(e.message);
-                                    });
+                                });
                             }).catch((e) => {
                                 throw new Error(e.message);
                             });
-                        }).catch((e) => {
+                        })
+                        .catch((e) => { // purchase NFT
                             throw new Error(e.message);
                         });
-                    })
-                    .catch((e) => { // purchase NFT
-                        throw new Error(e.message);
-                    });
+                }).catch((e) => {
+                    throw new Error(e.message);
+                });
             }).catch((e) => {
                 throw new Error(e.message);
-            });    
+            });
         }).catch((e) => {
-            throw new Error(e.message);
+            console.log('connection issue:', e)
+            showErrors(e.message);
         });
-    }).catch((e) => {
-        console.log('connection issue:', e)
-        showErrors(e.message);
-    });
 }
 
 export async function claim(_productId) {
@@ -458,4 +462,4 @@ export function checkForContracts() {
 //window.MEHVote = MEHVote;
 //window.vote = vote;
 //window.loadStaticProductData = loadStaticProductData;
-
+window.addrForm = addrForm;

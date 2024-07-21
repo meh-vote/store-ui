@@ -587,3 +587,30 @@ body.overlay_on #overlay {
     box-shadow: 5px 5px var(--alert_color);
     font-weight: bold;
 }
+
+form#get_address {
+    max-width:320px;
+    margin: auto;
+}
+
+form#get_address label {
+    display: block;
+    font-size: small;
+    text-align: left;
+    line-height: 1rem;
+}
+
+form#get_address input {
+    display: block;
+    width: 100%;
+}
+
+form#get_address ~ #close {
+    top: 1rem;
+    right: 1rem;
+    position: absolute;
+}
+
+form#get_address > div {
+    margin-bottom: 1rem;
+}
