@@ -334,6 +334,7 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
     console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
     // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
     // might make sense to use toastify-js here, for steps/status
+    let nftId;
     await getConnectionReady()
         .then(async () => {
             console.info('✓ connection ready');
@@ -354,16 +355,24 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                             console.info(`✓ NFT purchased`);
                             await waitForTx(_tx).then(async () => {
                                 console.info(`✓ NFT purchase tx complete on-chain`);
+                                await web3.eth.getTransactionReceipt(_tx).then(async (_receipt) => {
+                                    nftId = web3.utils.hexToNumber(_receipt.logs[2].topics[2]);
+                                    if (!nftId || isNaN(nftId)) {
+                                        throw new Error('Unable to get NFT ID');
+                                    };
+                                }).catch((e) => {
+                                    throw new Error(e.message);
+                                });
                                 await approveMehNFT().then(async (_tx) => {
                                     console.info(`✓ NFT approved`);
                                     await waitForTx(_tx).then(async () => {
                                         console.info(`✓ NFT approval tx complete on-chain`);
                                         await addrForm('Send').then(async (_form_data) => {
                                             console.info(`✓ Address form submitted`);
-                                            await NFTtoProduct({ _nftId: 3, _address: JSON.stringify(_form_data)})
+                                            await NFTtoProduct({ _nftId: nftId, _address: JSON.stringify(_form_data)})
                                             .then(async (_tx) => {
                                                 console.info(`✓ NFT submitted to store, with addr`);
-                                                console.info(`REMAINING STEP\n* get & use id of purchased NFT (testing with fixed)\n* encrypt addr before sending tx\n* wait for final tx success`);
+                                                console.info(`REMAINING STEP\n* encrypt addr before sending tx\n* wait for, and display final tx success`);
                                             }).catch((e) => {
                                                 throw new Error(e.message);
                                             });
