@@ -359,17 +359,18 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                                     await waitForTx(_tx).then(async () => {
                                         console.info(`✓ NFT approval tx complete on-chain`);
                                         await addrForm('Send').then(async (_form_data) => {
-                                            console.info(`✓ NFT submitted to store, with addr`, _form_data);
-                                        })
-                                    //skip past form >>> json issues ftm, and send static addr to store
-/*                                    await NFTtoProduct({ _nftId: 3, _address: `{"name":"Pomegranate","email":"test@test.com"}`})
-                                        .then(async (_tx) => {
-                                            console.info(`✓ NFT submitted to store, with addr`);
-                                            console.info(`REMAINING STEP\n* generate and show form\n* collect delivery address\n* submit address with NFT\n* wait for tx success`);
+                                            console.info(`✓ Address form submitted`);
+                                            await NFTtoProduct({ _nftId: 3, _address: JSON.stringify(_form_data)})
+                                            .then(async (_tx) => {
+                                                console.info(`✓ NFT submitted to store, with addr`);
+                                                console.info(`REMAINING STEP\n* get & use id of purchased NFT (testing with fixed)\n* encrypt addr before sending tx\n* wait for final tx success`);
+                                            }).catch((e) => {
+                                                throw new Error(e.message);
+                                            });
                                         }).catch((e) => {
                                             throw new Error(e.message);
                                         });
-*/                                }).catch((e) => {
+                                }).catch((e) => {
                                             throw new Error(e.message);
                                         });
                                 }).catch((e) => {
@@ -463,3 +464,4 @@ export function checkForContracts() {
 //window.vote = vote;
 //window.loadStaticProductData = loadStaticProductData;
 window.addrForm = addrForm;
+window.NFTtoProduct = NFTtoProduct;
