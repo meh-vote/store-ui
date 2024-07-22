@@ -214,6 +214,10 @@ export function addrForm(btn_label = 'Submit') {
         <input required type="text" id="city" name="city" autocomplete="address-level2" enterkeyhint="next">
       </div>
       <div>
+        <label for="state">State or province</label>
+        <input required type="text" id="state" name="state" autocomplete="address-level1" enterkeyhint="next">
+      </div>
+      <div>
         <label for="country">Country or region</label>
         <select id="country" name="country" autocomplete="country" enterkeyhint="done" required>
             <option></option>
