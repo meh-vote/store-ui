@@ -21,6 +21,7 @@ import {
     ,showErrors
     ,showSuccess
     ,addrForm
+    ,RSAencrypt
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
 
@@ -272,6 +273,7 @@ export async function NFTtoProduct({ _nftId, _address }) {
             args: [_nftId, _address]
         })
     } catch (e) {
+console.error('WTF:', e);
         showErrors(`${e.message}`);
         return;
     };
@@ -369,13 +371,17 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                                         console.info(`✓ NFT approval tx complete on-chain`);
                                         await addrForm('Send').then(async (_form_data) => {
                                             console.info(`✓ Address form submitted`);
-                                            await NFTtoProduct({ _nftId: nftId, _address: JSON.stringify(_form_data)})
+//                                            const encAddr = await RSAencrypt(_form_data);
+//                                            await NFTtoProduct({ _nftId: nftId, _address: encAddr})
+                                            await NFTtoProduct({ _nftId: nftId, _address: await RSAencrypt(_form_data)})
                                             .then(async (_tx) => {
+//                                                console.log(_tx);
                                                 console.info(`✓ NFT submitted to store, with addr`);
-                                                console.info(`REMAINING STEP\n* encrypt addr before sending tx\n* wait for, and display final tx success`);
+                                                console.info(`REMAINING STEP\n* wait for, swap 'buy' button out`);
                                             }).catch((e) => {
                                                 throw new Error(e.message);
                                             });
+
                                         }).catch((e) => {
                                             throw new Error(e.message);
                                         });

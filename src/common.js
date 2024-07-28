@@ -1,5 +1,5 @@
 import { params } from "./main.js";
-import { MEHToken, USDCToken,MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
+import { MEHToken, USDCToken, MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
 
 export function cleanBigInt(_bigInt, _divisor = 1) {
     return Math.round(Number(_bigInt) / _divisor);
@@ -24,6 +24,7 @@ export async function getAccounts() {
 }
 
 export function showErrors(_message, _stop = false) {
+    console.error(_message);
     let div = document.createElement("div");
     div.id = "overlay";
     document.body.insertAdjacentElement('beforeend', div);
@@ -55,7 +56,7 @@ export function showSuccess(_message, link = null) {
         document.getElementById("overlay").remove();
         document.body.classList.remove("overlay_on");
     }, 5000);
-//console.log(_message);
+    //console.log(_message);
 }
 
 // **********************
@@ -164,37 +165,55 @@ export async function checkRemainingApproval(_wallet) {
 };
 
 export async function checkMehBalance(_wallet) {
-    let balance = await MEHToken.methods.balanceOf(_wallet).call().then((result) => {return cleanBigInt(result,params.tokenScale)});
+    let balance = await MEHToken.methods.balanceOf(_wallet).call().then((result) => { return cleanBigInt(result, params.tokenScale) });
     return balance;
 };
 
 export async function checkUSDCBalance(_wallet) {
-    let balance = await USDCToken.methods.balanceOf(_wallet).call().then((result) => {return cleanBigInt(result,params.USDCScale)});
+    let balance = await USDCToken.methods.balanceOf(_wallet).call().then((result) => { return cleanBigInt(result, params.USDCScale) });
     return balance;
 };
 
-export async function calcGas({account, context, func, args = null}) {
+export async function calcGas({ account, context, func, args = null }) {
     let gasPrice = await getGasPrice();
     gasPrice = Math.trunc(Number(gasPrice) * 1.5);
-  
-    let estimatedGas = await context[func].apply(null,args?args:null).estimateGas({from: account})
-      .catch((error) => {throw new Error(error.message);});
-  
-    return {gasPrice,estimatedGas};
+
+    let estimatedGas = await context[func].apply(null, args ? args : null).estimateGas({ from: account })
+        .catch((error) => { throw new Error(error.message); });
+
+    return { gasPrice, estimatedGas };
 }
 
 async function getGasPrice() {
     const price = await web3.eth.getGasPrice();
-//    console.log(`Checking gas:`,price);
+    //    console.log(`Checking gas:`,price);
     return price;
 }
+
+export async function RSAencrypt(_JSONdata) {
+    let encrypted;
+    await crypto.subtle.importKey('jwk', JSON.parse('{"alg":"RSA-OAEP-256","e":"AQAB","ext":true,"key_ops":["encrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck"}'), {
+        name: "RSA-OAEP",
+        hash: "SHA-256",
+    }, false, ['encrypt']).then(async (e) => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(JSON.stringify(_JSONdata));
+        await crypto.subtle.encrypt({
+            name: "RSA-OAEP",
+            hash: "SHA-256",
+        }, e, data).then((x) => {
+            encrypted = new Uint8Array(x).toString();
+        });
+    });
+    return encrypted;
+};
 
 export function addrForm(btn_label = 'Submit') {
     return new Promise((resolve, reject) => {
         let div = document.createElement("div");
-    div.id = "overlay";
-    document.body.insertAdjacentElement('beforeend', div);
-    div.innerHTML = `<div class="wrapper" id="overlay_content">
+        div.id = "overlay";
+        document.body.insertAdjacentElement('beforeend', div);
+        div.innerHTML = `<div class="wrapper" id="overlay_content">
     <form id="get_address">
       <div>
         <label for="name">Name</label>
@@ -475,27 +494,27 @@ export function addrForm(btn_label = 'Submit') {
       <button class="btn_meh_dark">Send</button>
     </form>
   </div>`;
-    document.body.classList.add("overlay_on");
+        document.body.classList.add("overlay_on");
 
-    document.getElementById('overlay_content').insertAdjacentHTML('beforeend', `<div id="close">X</div>`);
+        document.getElementById('overlay_content').insertAdjacentHTML('beforeend', `<div id="close">X</div>`);
 
-    document.getElementById('close').addEventListener('click', () => {
-        document.getElementById("overlay").remove();
-        document.body.classList.remove("overlay_on");
-        reject(new Error('User closed address form.'));
+        document.getElementById('close').addEventListener('click', () => {
+            document.getElementById("overlay").remove();
+            document.body.classList.remove("overlay_on");
+            reject(new Error('User closed address form.'));
+        });
+
+        document.getElementById('get_address').addEventListener('submit', (_form) => {
+            _form.preventDefault();
+            document.getElementById("overlay").remove();
+            document.body.classList.remove("overlay_on");
+
+            const data = new FormData(_form.target);
+            const _form_data = Object.fromEntries(data.entries());
+            // the above only accounts for single-value fields/elements
+            resolve(_form_data);
+        });
     });
-
-    document.getElementById('get_address').addEventListener('submit', (_form) => {
-        _form.preventDefault();
-        document.getElementById("overlay").remove();
-        document.body.classList.remove("overlay_on");
-
-        const data = new FormData(_form.target);
-        const _form_data = Object.fromEntries(data.entries());
-        // the above only accounts for single-value fields/elements
-        resolve(_form_data);
-    });
-});
 }
 
 
