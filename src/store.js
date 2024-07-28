@@ -105,6 +105,7 @@ export async function loadStaticProductData() {
     for (const _product of products) {
         await _product.asyncInit();
     }
+    window.products = products;
 
     await displayProducts();
 }
@@ -371,17 +372,18 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                                         console.info(`✓ NFT approval tx complete on-chain`);
                                         await addrForm('Send').then(async (_form_data) => {
                                             console.info(`✓ Address form submitted`);
-//                                            const encAddr = await RSAencrypt(_form_data);
-//                                            await NFTtoProduct({ _nftId: nftId, _address: encAddr})
                                             await NFTtoProduct({ _nftId: nftId, _address: await RSAencrypt(_form_data)})
                                             .then(async (_tx) => {
-//                                                console.log(_tx);
                                                 console.info(`✓ NFT submitted to store, with addr`);
-                                                console.info(`REMAINING STEP\n* wait for, swap 'buy' button out`);
+                                                await waitForTx(_tx).then(async () => {
+                                                    console.info(`✓ NFT Store tx complete on-chain`);
+                                                    products.find(product => product.storeId == _productId).markPurchased();
+                                                }).catch((e) => {
+                                                    throw new Error(e.message);
+                                                });
                                             }).catch((e) => {
                                                 throw new Error(e.message);
                                             });
-
                                         }).catch((e) => {
                                             throw new Error(e.message);
                                         });
@@ -458,7 +460,6 @@ export function updateLiveProductData() {
             for (const _product of data) {
                 //            products[index].updateContracts({_deposited: Number(_product.mehContractsDeposited)})
                 products.find(product => product.id == _product.id).updateContracts({ _deposited: Number(_product.mehContractsDeposited) })
-
             }
             displayProducts(true);
         });

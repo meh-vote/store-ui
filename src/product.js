@@ -52,33 +52,6 @@ export class product {
         this.html.className = 'product';
         this.html.style.backgroundImage = `url(${this.image})`;
         this.html.id = `product_${this.id}`;
-        /*        if (params.provider) {
-                    this.html.insertAdjacentHTML('afterbegin', `<div class="remaining">${this.remainingContracts ?? '?'}/${this.mehContracts}</div>`);
-                };
-        *//*        this.html.insertAdjacentHTML('beforeend',
-                `<div class="desc">
-                    <div class="title">
-                        <div>${this.name}</div>
-                    </div>
-                    <div class="action">
-                        <div>${shortenNumber(this.contractPrice,0)} USDC</div>
-                        ${(params.provider)
-                            ?`<div>Preorder sales</div>`
-                            :`<div>Provider required to check preorder status</div>`
-                        }
-                    </div>
-                </div>`);
-        */
-        /*        if (this.soldOut) {
-                    this.html.insertAdjacentHTML('beforeend', `<div class="alert">Sold Out</div>`);
-                } else if (this.activeStatus == 0) {
-                    this.html.insertAdjacentHTML('beforeend', `<div class="message"><div class="success small_text">Opens<br />${new Date(this.begin).toLocaleString()}</div></div>`);
-                } else if (this.activeStatus == 2) {
-                    this.html.insertAdjacentHTML('beforeend', `<div class="alert small_text">Voting Closed</div>`);
-                } else if (this.activeStatus == 1 && this.soldOut == false) {
-                    this.html.addEventListener('click', () => vote(this.id))
-                }
-        */
 
         // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
@@ -140,5 +113,11 @@ export class product {
         if (_owned) {
             this.contractsOwned = _owned;
         }
+    }
+
+    markPurchased() {
+        this.saleStatus = 'sold';
+        this.html.querySelector(`#buy_nft_${this.id}`).remove();
+        this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft sold">PURCHASED</span>`);
     }
 };
