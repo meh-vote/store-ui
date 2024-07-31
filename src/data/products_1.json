@@ -78,7 +78,12 @@
     "usdcPrice": 40,
     "name": "MEH SHIRT 02",
     "prizeMeh": 100000000000000000000000000,
-    "totalContracts": 1000
+    "totalContracts": 1000,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "order_min": 100,
+    "sizes": ["m","l","xl","xxl"],
+    "saleStatus": "active"
 },
 {
     "begin": 1715220000,
@@ -92,12 +97,18 @@
     "usdcPrice": 100,
     "name": "MEH HOODIE ERC-721",
     "prizeMeh": 50000000000000000000000000,
-    "totalContracts": 50
+    "totalContracts": 50,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "order_min": 100,
+    "sizes": ["xl","xxl"],
+    "saleStatus": "active"
 },
 {
     "begin": 1715547600,
     "end": 1715655209,
     "id": 7,
+    "storeId": 6,
     "limitedRun": false,
     "mehContractPrice": 2500000000000000000000000,
     "mehContracts": 500,
@@ -106,7 +117,12 @@
     "usdcPrice": 40,
     "name": "MEH HAT ERC-721",
     "prizeMeh": 5000000000000000000000000,
-    "totalContracts": 2000
+    "totalContracts": 2000,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "order_min": 100,
+    "sizes": ["adjustable"],
+    "saleStatus": "active"
 },
 {
     "begin": 1715608800,
@@ -120,6 +136,31 @@
     "usdcPrice": 125,
     "name": "MEH HOODIE 01",
     "prizeMeh": 2500000000000000000000000,
-    "totalContracts": 1000
+    "totalContracts": 1000,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "order_min": 100,
+    "sizes": ["xl","xxl"],
+    "saleStatus": "active"
+},
+{
+    "begin": 1715547600,
+    "end": 1715655209,
+    "id": 9,
+    "storeId": 6,
+    "limitedRun": false,
+    "mehContractPrice": 2500000000000000000000000,
+    "mehContracts": 500,
+    "mehContractsDeposited": null,
+    "mehStore": true,
+    "usdcPrice": 40,
+    "name": "MEH HAT ERC-721",
+    "prizeMeh": 5000000000000000000000000,
+    "totalContracts": 2000,
+    "shippingDomestic": 5.00,
+    "shippingInternational": 20.00,
+    "order_min": 100,
+    "sizes": ["adjustable"],
+    "saleStatus": ""
 }
 ]
