@@ -458,7 +458,7 @@ body.overlay_on #overlay {
 .product .alert {
     align-items: center;
     position: absolute;
-    top: calc(50% - 40px);
+    bottom: -10px;
     width: 100%;
     padding: 0 10px;
     margin: 0 -10px;
