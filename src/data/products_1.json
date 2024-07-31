@@ -9,14 +9,19 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 1,
-    "name": "MEH SHIRT 01",
+    "name": "Limited Edition //MEH T-shirt - Screenprint",
     "prizeMeh": 25000000000000000000000000,
     "totalContracts": 1000,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["m", "l", "xl", "xxl"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "Elevate your game with the limited edition EC1000 //MEH T-shirt. Featuring a boxier cut and crafted from soft, heavyweight 100% organic cotton, this classic tee is both stylish and sustainable. Econscious ensures quality and ethical manufacturing, partnering with factories that prioritize a safe and healthy working environment. Embrace elite comfort and eco-conscious fashion with this very limited edition MEH piece. Join the MEH Cult with style.",
+        "material": "100% organic cotton",
+        "coo": "Mexico"
+    }
 },
 {
     "begin": 1715220000,
@@ -29,14 +34,19 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 2,
-    "name": "MEH HAT 01",
+    "name": "//MEH Eco-Trucker Hat - Embroidered",
     "prizeMeh": 10000000000000000000000000,
     "totalContracts": 2000,
     "shipping_domestic": 5.00,
     "shipping_international": 20.00,
     "order_min": 50,
     "sizes": ["adjustable"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
+        "material": "70% cotton / 30% polyester",
+        "coo": "China"
+    }
 },
 {
     "begin": 1715220000,
@@ -50,7 +60,8 @@
     "usdcPrice": 1,
     "name": "MEH DIGITAL STICKER 01",
     "prizeMeh": 1000000,
-    "totalContracts": 250
+    "totalContracts": 250,
+    "meta": {}
 },
 {
     "begin": 1715220000,
@@ -64,7 +75,8 @@
     "usdcPrice": 100,
     "name": "MEH DECK 01",
     "prizeMeh": 100000000000000000000000000,
-    "totalContracts": 25
+    "totalContracts": 25,
+    "meta": {}
 },
 {
     "begin": 1715392800,
@@ -76,14 +88,19 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 40,
-    "name": "MEH SHIRT 02",
+    "name": "Limited Edition //MEH T-shirt - Embroidered",
     "prizeMeh": 100000000000000000000000000,
     "totalContracts": 1000,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["m","l","xl","xxl"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "Elevate your game with the limited edition EC1000 //MEH T-shirt. Featuring a boxier cut and crafted from soft, heavyweight 100% organic cotton, this classic tee is both stylish and sustainable. Econscious ensures quality and ethical manufacturing, partnering with factories that prioritize a safe and healthy working environment. Embrace elite comfort and eco-conscious fashion with this very limited edition MEH piece. Join the MEH Cult with style.",
+        "material": "100% organic cotton",
+        "coo": "Mexico"
+    }
 },
 {
     "begin": 1715220000,
@@ -95,14 +112,19 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 100,
-    "name": "MEH HOODIE ERC-721",
+    "name": "Limited Edition //MEH Black Hoodie",
     "prizeMeh": 50000000000000000000000000,
     "totalContracts": 50,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["xl","xxl"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "Elevate your game with the limited edition EC1000 //MEH T-shirt. Featuring a boxier cut and crafted from soft, heavyweight 100% organic cotton, this classic tee is both stylish and sustainable. Econscious ensures quality and ethical manufacturing, partnering with factories that prioritize a safe and healthy working environment. Embrace elite comfort and eco-conscious fashion with this very limited edition MEH piece. Join the MEH Cult with style.",
+        "material": "100% organic cotton",
+        "coo": "Mexico"
+    }
 },
 {
     "begin": 1715547600,
@@ -115,14 +137,19 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 40,
-    "name": "MEH HAT ERC-721",
+    "name": "//MEH Eco-Trucker Hat - Screenprint",
     "prizeMeh": 5000000000000000000000000,
     "totalContracts": 2000,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["adjustable"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
+        "material": "70% cotton / 30% polyester",
+        "coo": "China"
+    }
 },
 {
     "begin": 1715608800,
@@ -134,14 +161,18 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 125,
-    "name": "MEH HOODIE 01",
+    "name": "//MEH Heritage Pullover Hoodie",
     "prizeMeh": 2500000000000000000000000,
     "totalContracts": 1000,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["xl","xxl"],
-    "saleStatus": "active"
+    "saleStatus": "active",
+    "meta": {
+        "description": "Experience timeless comfort and sustainability with the EC5500 Unisex Heritage Pullover Hoodie. Crafted by Econscious, partnering with //MEH. This classic hoodie blends style with eco-conscious materials. Its unisex design offers a versatile fit, while heritage-inspired details add a touch of nostalgia, or whatever you are into. Wrap yourself in MEH’s eco-friendly heritage.",
+        "material": "80% organic cotton, 20% recycled polyester"
+    }
 },
 {
     "begin": 1715547600,
@@ -154,13 +185,18 @@
     "mehContractsDeposited": null,
     "mehStore": true,
     "usdcPrice": 40,
-    "name": "MEH HAT ERC-721",
+    "name": "//MEH Eco-Trucker Hat - Embroidered",
     "prizeMeh": 5000000000000000000000000,
     "totalContracts": 2000,
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
     "sizes": ["adjustable"],
-    "saleStatus": ""
+    "saleStatus": "",
+    "meta": {
+        "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
+        "material": "70% cotton / 30% polyester",
+        "coo": "China"
+    }
 }
 ]
