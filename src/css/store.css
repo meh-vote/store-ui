@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-/*    --alert_color: rgb(234 35 254);
-*/    --alert_color: rgb(255 0 0 / 1);
+    /*    --alert_color: rgb(234 35 254);
+*/
+    --alert_color: rgb(255 0 0 / 1);
     --success_color: rgb(2 228 43);
     --header_height: 94px;
     --background-color-dark: rgb(0 0 0 / 1);
-/*    --background-color-light: rgb(128 128 128 / 1);
-*/    --background-color-light: white;
+    /*    --background-color-light: rgb(128 128 128 / 1);
+*/
+    --background-color-light: white;
     --background-color-overlay: rgb(0 0 0 / 0.6);
     --background-color-header: rgb(255 0 0 / 1);
 }
@@ -254,9 +256,9 @@ body.overlay_on #overlay {
 }
 
 #overlay #overlay_content {
-    border:5px solid black;
-    background-color:white;
-    position:relative;
+    border: 5px solid black;
+    background-color: white;
+    position: relative;
     width: max(360px, 50%);
     margin: auto;
     box-shadow: 5px 5px white;
@@ -307,7 +309,7 @@ body.overlay_on #overlay {
     width: 100%;
     text-align: center;
     bottom: 0;
-    display:none;
+    display: none;
 }
 
 #token_status,
@@ -348,7 +350,7 @@ body.overlay_on #overlay {
     position: absolute;
     width: 100%;
     text-align: center;
-    display:none;
+    display: none;
 }
 
 #timer_status,
@@ -424,14 +426,14 @@ body.overlay_on #overlay {
     height: 100%
 }
 
-.product .title {
+.product>.title {
     position: absolute;
     top: 0;
     width: calc(100% - 1rem);
     padding: 0.5rem;
 }
 
-.product .title div:first-of-type {
+.product>.title div:first-of-type {
     font-size: 36px;
     font-weight: bold;
 }
@@ -475,7 +477,6 @@ body.overlay_on #overlay {
 .product .base_info {
     align-items: center;
     position: absolute;
-/*    top: calc(50% - 40px);*/
     width: 100%;
     padding: 0 10px;
     margin: 0 -10px -10px;
@@ -486,10 +487,10 @@ body.overlay_on #overlay {
     font-weight: bold;
     align-content: center;
     opacity: 0.9;
-    grid-template: 2fr 1fr / auto 1fr;
+    grid-template-columns: 3fr 1fr;
     bottom: 0;
     line-height: normal;
-    display:none;
+    display: none;
 }
 
 .product:active .base_info,
@@ -497,27 +498,32 @@ body.overlay_on #overlay {
     display: grid;
 }
 
-.product .base_info div:first-of-type {
+.product .base_info .title {
     text-align: left;
 }
 
-.product .base_info div:nth-of-type(2) {
+.product .base_info .price,
+.product .base_info .price * {
     text-align: right;
     font-family: 'Roboto Condensed';
     font-weight: 300;
 }
 
-.product .base_info div:first-of-type,
-.product .base_info div:nth-of-type(2) {
-    font-size: 24px;
+.product .base_info *,
+.product .base_info .price strong {
+        font-size: 24px;
 }
 
-.product .base_info div:last-of-type {
-    grid-column: 1 / span 2;
-    font-family: 'Roboto Condensed';
+.product .base_info .price {
     font-size: 16px;
-    text-align: left;
-    font-weight: 300;
+}
+
+.product .base_info .price strong {
+    font-weight: bold;
+}
+
+.product .base_info .price :not(strong) {
+    font-size: 16px;
 }
 
 .message .success.small_text,
@@ -544,7 +550,7 @@ body.overlay_on #overlay {
 }
 
 .product .action div:last-of-type {
-    font-size:24px;
+    font-size: 24px;
     font-family: "Roboto Condensed", sans-serif;
     font-optical-sizing: auto;
     font-weight: 100;
@@ -552,13 +558,13 @@ body.overlay_on #overlay {
     letter-spacing: 0.10rem;
 }
 
-:not(#coming_soon) > .product:active,
-:not(#coming_soon) > .product:hover {
+:not(#coming_soon)>.product:active,
+:not(#coming_soon)>.product:hover {
     background-color: rgb(0 0 0 / 0.6);
     background-blend-mode: overlay;
 }
 
-#coming_soon > .product {
+#coming_soon>.product {
     pointer-events: none;
 }
 
@@ -578,7 +584,7 @@ body.overlay_on #overlay {
 
 .product .contract_count,
 .product .buy_nft {
-    background: rgb( 63 63 63 / 1 );    
+    background: rgb(63 63 63 / 1);
     position: absolute;
     top: -1rem;
     right: -1rem;
@@ -591,11 +597,11 @@ body.overlay_on #overlay {
 .product .buy_nft.sold {
     cursor: not-allowed;
     background: var(--alert_color);
-    box-shadow: 5px 5px rgb( 63 63 63 / 1 );
+    box-shadow: 5px 5px rgb(63 63 63 / 1);
 }
 
 form#get_address {
-    max-width:320px;
+    max-width: 320px;
     margin: auto;
 }
 
@@ -621,13 +627,13 @@ form#get_address select {
     width: 100%;
 }
 
-form#get_address ~ #close {
+form#get_address~#close {
     top: 1rem;
     right: 1rem;
     position: absolute;
 }
 
-form#get_address > div {
+form#get_address>div {
     margin-bottom: 1rem;
 }
 

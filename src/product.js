@@ -55,7 +55,11 @@ export class product {
 
         // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
-            this.html.insertAdjacentHTML('beforeend', `<div class="base_info"><div>${this.name}</div><div>${this.usdcPrice} USDC</div><div>Presale remaining ???/${this.preorderMin}</div></div>`);
+            this.html.insertAdjacentHTML('beforeend',
+                `<div class="base_info">
+                    <div class="title">${this.name}</div>
+                    <div class="price"><strong>${this.usdcPrice}</strong>USDC</div>
+                </div>`);
 
             this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY</span>`);
             this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
