@@ -1,6 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 import {
@@ -10,10 +10,12 @@ import {
     updateLiveProductData,
     checkForContracts
 } from './store.js';
-import { reloadClient } from './common.js';
+import { reloadClient, showFAB } from './common.js';
 import { init as walletInit, connect, tokenDisplay } from './wallet.js';
+import { loadMyNFTs } from './nfts.js';
 
-library.add(faCirclePlus, faTrashCan);
+
+library.add(faCirclePlus, faTrashCan, faQuestion);
 dom.watch();
 
 export const params = {
@@ -44,6 +46,7 @@ export const params = {
 await loadStaticProductData();
 await prepConnectBtn();
 await walletInit();
+showFAB();
 //updateTransactionQueue();
 
 export function prepConnectBtn() {

@@ -1,5 +1,6 @@
 import { params } from "./main.js";
 import { MEHToken, USDCToken, MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
+import { loadMyNFTs } from "./nfts.js";
 
 export function cleanBigInt(_bigInt, _divisor = 1) {
     return Math.round(Number(_bigInt) / _divisor);
@@ -278,6 +279,37 @@ export function addrForm(btn_label = 'Submit') {
     });
 }
 
+export function showFAB() {
+    let fab = document.createElement("div");
+    fab.id = "fab";
+/*    fab.innerHTML =
+        `<input id="fabCheckbox" type="checkbox" class="fab-checkbox" />
+        <label class="fab" for="fabCheckbox">
+            <span class="fab-dots fab-dots-1"></span>
+            <span class="fab-dots fab-dots-2"></span>
+            <span class="fab-dots fab-dots-3"></span>
+        </label>
+        <div class="fab-wheel">
+            <a class="fab-action fab-action-1">
+                <i class="fa-solid fa-question"></i>
+                <i class="fa-solid fa-question"></i>
+            </a>
+            <a class="fab-action fab-action-2">
+                <i class="fas fa-book"></i>
+            </a>
+            <a class="fab-action fab-action-3">
+                <i class="fas fa-address-book"></i>
+            </a>
+            <a class="fab-action fab-action-4">
+                <i class="fas fa-info"></i>
+            </a>
+        </div>`;
+*/
+    fab.innerHTML = `<span class="meh_button">MY NFTS</span>`;
+    fab.addEventListener('click', () => { loadMyNFTs(); }); // TEMP
+
+    document.body.insertAdjacentElement('beforeend', fab);
+};
 
 window.showSuccess = showSuccess;
 window.showErrors = showErrors;

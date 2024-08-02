@@ -61,7 +61,7 @@ export class product {
                     <div class="price"><strong>${this.usdcPrice}</strong>USDC</div>
                 </div>`);
 
-            this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft">BUY</span>`);
+            this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft meh_button">BUY</span>`);
             this.html.getElementsByClassName(`buy_nft`)[0].addEventListener('click', async (evt) => {
                 evt.stopImmediatePropagation();
                 await purchaseProcess({_USDCprice: this.usdcPrice, _productId: this.storeId}).catch((e) => {
@@ -122,6 +122,6 @@ export class product {
     markPurchased() {
         this.saleStatus = 'sold';
         this.html.querySelector(`#buy_nft_${this.id}`).remove();
-        this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft sold">PURCHASED</span>`);
+        this.html.insertAdjacentHTML('afterbegin', `<span id="buy_nft_${this.id}" class="buy_nft meh_buttonsold">PURCHASED</span>`);
     }
 };

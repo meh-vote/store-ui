@@ -25,47 +25,7 @@ import {
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
 
-import CryptoJS from 'crypto-js';
-
-async function cryptoTest() {
-    const address = '742 Evergreen Terrace, Springfield, OR 97475';
-    const secretKey = 'that-gum-you-like-is-coming-back-in-style';
-    let encrypted;
-    try {
-        encrypted = await CryptoJS.AES.encrypt(address, secretKey).toString();
-    } catch (e) {
-        console.log('decrypt error:', e);
-    }
-    console.log('encrypted:', encrypted);
-    window.MEHStoreNFT = MEHStoreNFT;
-    await MEHStoreNFT.methods.enterDeliveryAddress(
-        3,  // NFT id
-        encrypted
-    ).call().then((x) => { console.log('enterDeliveryAddress:', x) });
-    /*
-    
-        const details = await mehStoreNFT.nftDetails(0);
-        console.log(details);
-    
-        const bytes = CryptoJS.AES.decrypt(details.deliveryAddress, secretKey);
-        const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
-    
-        console.log(decryptedString);
-    */
-}
-window.cryptoTest = cryptoTest;
-
 let products = [];
-
-/*export async function loadStaticGameData() {
-    await fetch(new Request(`./data/game_${params.gameId}.json`))
-        .then((response) => response.json())
-        .then((data) => {
-            params.gameStart = Number(data.begin) * 1000;
-            params.gameEnd = Number(data.end) * 1000;
-        })
-        .catch(console.error);
-}*/
 
 export async function loadStaticProductData() {
     products = [];
