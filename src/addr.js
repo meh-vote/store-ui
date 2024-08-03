@@ -75,5 +75,6 @@ export async function init() {
     MEHStoreNFT = new web3.eth.Contract(abiStoreNFT, MEH_STORE_NFT);
 
     window.MEHStore = MEHStore;
+    window.MEHStoreNFT = MEHStoreNFT;
 };
 

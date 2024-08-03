@@ -649,12 +649,37 @@ button.btn_meh_dark {
     text-transform: uppercase;
 }
 
+#breadcrumbs,
+#breadcrumbs * {
+        font-size: 14px;
+}
+
+#breadcrumbs {
+    color:red;
+}
+
 /* MY NFTS VIEW */
 
 #my_nfts {
     min-height: calc(100vh - var(--header_height));
+    padding: 0 2rem 2rem;
 }
 
+#my_nfts #nft_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+#my_nfts #nft_list > *{
+    width: 100px;
+    height: 100px;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    text-align: center;
+    align-content: center;
+}
 
 /* FAB */
 

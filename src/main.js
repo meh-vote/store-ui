@@ -36,10 +36,11 @@ export const params = {
     updatesOnChain: false,
     provider: null,
     account: null,
-    connection: 'static'  // oneOf('static', 'read', 'write')
+    connection: 'static',  // oneOf('static', 'read', 'write')
     // static :: only what is provided on-load of webapp
     // read :: requires a provider and the correct chain
     // write :: additionally, requires an address
+    ownedNFTs: null
 };
 
 // SHOW WHAT WE CAN WITHOUT A PROVIDER / WALLET
