@@ -19,7 +19,8 @@ export class product {
         limitedRun = true,
         totalContracts = null,
         saleStatus = null,
-        order_min = null
+        order_min = null,
+        details = {}
     }) {
         this.id = id;
         this.storeId = storeId;
@@ -43,6 +44,7 @@ export class product {
         this.contractsOwned = null;
         this.saleStatus = saleStatus;
         this.preorderMin = order_min;
+        this.details = details;
         // Need to hold on displaying the remaining contracts until we have a read connection and check the live data
         //        console.log(`contractsDeposited ${this.contractsDeposited}`)
     };
@@ -55,8 +57,20 @@ export class product {
 
         // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
+            console.log(this.details.description)
             this.html.insertAdjacentHTML('beforeend',
-                `<div class="base_info">
+                `<div class="product_details">
+                    ${(this.details.description)
+                        ?`<div class="description">${this.details.description}</div>`
+                        :''}
+                    ${(this.details.material)
+                        ?`<div class="materil">// ${this.details.material}</div>`
+                        :''}
+                    ${(this.details.coo)
+                        ?`<div class="origin">// origin: ${this.details.coo}</div>`
+                        :''}
+                </div>
+                <div class="base_info">
                     <div class="title">${this.name}</div>
                     <div class="price"><strong>${this.usdcPrice}</strong>USDC</div>
                 </div>`);

@@ -49,7 +49,8 @@ export async function loadStaticProductData() {
                     limitedRun: _product.limitedRun,
                     totalContracts: Number(_product.totalContracts),
                     saleStatus: _product.saleStatus,
-                    order_min: Number(_product.order_min)
+                    order_min: Number(_product.order_min),
+                    details: _product.meta
                 }));
             }
             // sort by product begin
