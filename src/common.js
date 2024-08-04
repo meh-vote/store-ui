@@ -42,12 +42,12 @@ export function showErrors(_message, _stop = false) {
     }
 }
 
-export function showSuccess(_message, link = null) {
+export function showSuccess(_message, _txId = null) {
     let div = document.createElement("div");
     div.id = "overlay";
     document.body.insertAdjacentElement('beforeend', div);
-    if (link) {
-        div.innerHTML = `<div id="overlay_content">${_message}<br /><a href="https://${etherscan}/tx/${link}" target="_blank">${link}</a></div>`;
+    if (_txId) {
+        div.innerHTML = `<div id="overlay_content">${_message}<br /><a href="https://${etherscan}/tx/${_txId}" target="_blank">${_txId}</a></div>`;
     } else {
         div.innerHTML = _message;
     }

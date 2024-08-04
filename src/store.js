@@ -15,13 +15,13 @@ import {
 import { product } from './product.js';
 import {
     calcGas
-    ,checkUSDCBalance
-    ,cleanBigInt
-    ,getAccounts
-    ,showErrors
-    ,showSuccess
-    ,addrForm
-    ,RSAencrypt
+    , checkUSDCBalance
+    , cleanBigInt
+    , getAccounts
+    , showErrors
+    , showSuccess
+    , addrForm
+    , RSAencrypt
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
 
@@ -234,7 +234,7 @@ export async function NFTtoProduct({ _nftId, _address }) {
             args: [_nftId, _address]
         })
     } catch (e) {
-console.error('WTF:', e);
+        console.error('WTF:', e);
         showErrors(`${e.message}`);
         return;
     };
@@ -318,41 +318,8 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
                             console.info(`✓ NFT purchased`);
                             await waitForTx(_tx).then(async () => {
                                 console.info(`✓ NFT purchase tx complete on-chain`);
-                                await web3.eth.getTransactionReceipt(_tx).then(async (_receipt) => {
-                                    nftId = web3.utils.hexToNumber(_receipt.logs[2].topics[2]);
-                                    if (!nftId || isNaN(nftId)) {
-                                        throw new Error('Unable to get NFT ID');
-                                    };
-                                }).catch((e) => {
-                                    throw new Error(e.message);
-                                });
-                                await approveMehNFT().then(async (_tx) => {
-                                    console.info(`✓ NFT approved`);
-                                    await waitForTx(_tx).then(async () => {
-                                        console.info(`✓ NFT approval tx complete on-chain`);
-                                        await addrForm('Send').then(async (_form_data) => {
-                                            console.info(`✓ Address form submitted`);
-                                            await NFTtoProduct({ _nftId: nftId, _address: await RSAencrypt(_form_data)})
-                                            .then(async (_tx) => {
-                                                console.info(`✓ NFT submitted to store, with addr`);
-                                                await waitForTx(_tx).then(async () => {
-                                                    console.info(`✓ NFT Store tx complete on-chain`);
-                                                    products.find(product => product.storeId == _productId).markPurchased();
-                                                }).catch((e) => {
-                                                    throw new Error(e.message);
-                                                });
-                                            }).catch((e) => {
-                                                throw new Error(e.message);
-                                            });
-                                        }).catch((e) => {
-                                            throw new Error(e.message);
-                                        });
-                                }).catch((e) => {
-                                            throw new Error(e.message);
-                                        });
-                                }).catch((e) => {
-                                    throw new Error(e.message);
-                                });
+                                products.find(product => product.storeId == _productId).markPurchased();
+                                showSuccess('NFT purchase successful!', _tx);
                             }).catch((e) => {
                                 throw new Error(e.message);
                             });
@@ -371,6 +338,50 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
             showErrors(e.message);
         });
 }
+
+export async function getPhysicalProduct(_nftId) {
+    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
+    // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
+    let nftId;
+    await getConnectionReady()
+        .then(async () => {
+            console.info('✓ connection ready');
+            // check for approval
+           // remove product from NFT list & show success message
+            await approveMehNFT().then(async (_tx) => {
+                console.info(`✓ NFT approved`);
+                await waitForTx(_tx).then(async () => {
+                    console.info(`✓ NFT approval tx complete on-chain`);
+                    await addrForm('Send').then(async (_form_data) => {
+                        console.info(`✓ Address form submitted`);
+                        await NFTtoProduct({ _nftId, _address: await RSAencrypt(_form_data) })
+                            .then(async (_tx) => {
+                                console.info(`✓ NFT submitted to store, with addr`);
+                                await waitForTx(_tx).then(async () => {
+                                    console.info(`✓ NFT Store tx complete on-chain`);
+                                    document.getElementById('nft_' + _nftId).remove();
+                                    showSuccess('Product purchased', _tx);
+                                    // remove product from list & show success message                  products.find(product => product.storeId == _productId).markPurchased();
+                                }).catch((e) => {
+                                    throw new Error(e.message);
+                                });
+                            }).catch((e) => {
+                                throw new Error(e.message);
+                            });
+                    }).catch((e) => {
+                        throw new Error(e.message);
+                    });
+                }).catch((e) => {
+                    throw new Error(e.message);
+                });
+            }).catch((e) => {
+                throw new Error(e.message);
+            });
+        }).catch((e) => {
+            throw new Error(e.message);
+        });
+};
+
 
 export async function claim(_productId) {
     const accounts = await getAccounts();

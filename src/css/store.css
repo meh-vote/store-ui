@@ -671,6 +671,7 @@ button.btn_meh_dark {
     flex-wrap: wrap;
     gap: 2rem;
     margin: 2rem 0;
+    justify-content: center;
 }
 
 #my_nfts #nft_list>* {
