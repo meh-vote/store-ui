@@ -6,6 +6,7 @@ import {
     calcGas
     ,cleanBigInt
 } from './common.js';
+import { getProductImageFromProductId } from './store.js';
 
 export async function loadMyNFTs() {
     let baseHTML = document.createElement("div");
@@ -34,8 +35,10 @@ export async function loadMyNFTs() {
             });    
         }
         const nftList = baseHTML.querySelector("#nft_list");
-        params.ownedNFTs.forEach(token => {
-            nftList.insertAdjacentHTML('beforeend', `<div class="nft_token" id="nft_${token}">NFT ${token}</div>`);
+        params.ownedNFTs.forEach(async token => {
+            const productId = await getProductIDFromNFT(token);
+            const productImage = await getProductImageFromProductId(productId);
+            nftList.insertAdjacentHTML('beforeend', `<div class="nft_token" id="nft_${token}" style="background-image: url(${productImage})">NFT ${token}</div>`);
             document.querySelector(`#nft_${token}`).addEventListener('click', () => {});
         });
     }
@@ -69,6 +72,15 @@ async function getERC721TokensHeld() {
 
     const tokensHeld = Object.keys(tokenOwnership).filter(tokenId => tokenOwnership[tokenId]);
     return tokensHeld;
+}
+
+async function getProductIDFromNFT(_tokenId, _floodDelay = 100) {
+        return new Promise(resolve => setTimeout(() => {
+            MEHStoreNFT.methods.nftDetails(_tokenId).call().then(out => {
+                const tmp = cleanBigInt(out.productId);
+                resolve(tmp);
+            }).catch((e)=>{throw e});
+        }, _floodDelay))
 }
 
 window.loadMyNFTs = loadMyNFTs;

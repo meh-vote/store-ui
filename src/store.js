@@ -431,6 +431,10 @@ export function checkForContracts() {
     };
 }
 
+export async function getProductImageFromProductId(_productId) {
+    return products.find(product => product.storeId == _productId).image;
+}
+
 // ****************************
 // SAMPLE / TEST CODE BELOW
 // ****************************
