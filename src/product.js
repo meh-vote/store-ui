@@ -57,7 +57,6 @@ export class product {
 
         // FOR STYLING, SHOW AS PRESALE STATE
         if (this.saleStatus == 'active') {
-            console.log(this.details.description)
             this.html.insertAdjacentHTML('beforeend',
                 `<div class="product_details">
                     ${(this.details.description)

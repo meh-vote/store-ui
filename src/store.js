@@ -260,14 +260,14 @@ export async function NFTtoProduct({ _nftId, _address }) {
     return txHash;
 }
 
-export async function purchaseProductNFT(_productID) {
+export async function purchaseProductNFT(_productID, _discount = false) {
     let gas = {}
     try {
         gas = await calcGas({
             account: params.account,
             context: MEHStore.methods,
             func: 'purchaseProduct',
-            args: [_productID, '']
+            args: [_productID, '', _discount]
         })
     } catch (e) {
         showErrors(`${e.message}`);
@@ -277,7 +277,7 @@ export async function purchaseProductNFT(_productID) {
     const tx = {
         'from': params.account,
         'to': MEH_STORE,
-        'data': MEHStore.methods.purchaseProduct(_productID, '').encodeABI(),
+        'data': MEHStore.methods.purchaseProduct(_productID, '', _discount).encodeABI(),
         'gas': web3.utils.toHex(gas.estimatedGas),
         'gasPrice': web3.utils.toHex(gas.gasPrice)
     };
