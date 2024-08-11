@@ -42,8 +42,8 @@ export async function init() {
         MEH_ROYALTY = "0x177C84EcDd00224d0b7B34e78De1bb7927b1d2B3";
         MEH_VOTE = "0xAC42e62be97abeAb7775cC4Bae84d0DB4223C508";
         USDC_TOKEN = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
-        MEH_STORE_NFT = "0xA8B6e09Fe9F8Bb0cFFd805a59CF08FE7060eEcaa"
-        MEH_STORE = "0x08716A65638A3aB937F59AFD7F909eaF4cdFa9e6"
+        MEH_STORE_NFT = "0xE3B26C453b7e1045D4A2336a3f1DA20d3E540F01"
+        MEH_STORE = "0x86eC20256941fe020CcDC35f57e421D00AbE996C"
         apiKey = "GBfdhUAKP01Zmxr9l8JybRbAnEH7YRb9";
         alchemy = "https://base-sepolia.g.alchemy.com/v2/";
         etherscan = "sepolia.basescan.org";

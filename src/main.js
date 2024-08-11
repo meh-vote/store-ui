@@ -15,6 +15,8 @@ import { init as walletInit, connect, tokenDisplay } from './wallet.js';
 import { loadMyNFTs } from './nfts.js';
 
 
+import { showSuccess } from './toast.js';
+
 library.add(faCirclePlus, faTrashCan, faQuestion);
 dom.watch();
 
@@ -49,6 +51,9 @@ await prepConnectBtn();
 await walletInit();
 showFAB();
 //updateTransactionQueue();
+//showSuccess({_msg:"Loading...", _dur:30000});
+//showSuccess({_msg:"Loading..."});
+//showSuccess({});
 
 export function prepConnectBtn() {
     document.body.classList.add("disconnected");

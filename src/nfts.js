@@ -75,7 +75,7 @@ async function getERC721TokensHeld() {
 
 async function getProductIDFromNFT(_tokenId, _floodDelay = 250) {
         return new Promise(resolve => setTimeout(() => {
-            MEHStoreNFT.methods.nftDetails(_tokenId).call().then(out => {
+            MEHStoreNFT.methods.getNFTDetailsByTokenId(_tokenId).call().then(out => {
                 const tmp = cleanBigInt(out.productId);
                 resolve(tmp);
             }).catch((e)=>{throw e});

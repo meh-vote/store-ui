@@ -1696,6 +1696,30 @@ export const abiStoreNFT = [
           "type": "uint256"
         }
       ],
+      "name": "getNFTDetailsByTokenId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "productId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
       "name": "getPrice",
       "outputs": [
         {
