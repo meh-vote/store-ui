@@ -22,6 +22,7 @@ import {
     , showSuccess
     , addrForm
     , RSAencrypt
+//    , showWaiting
 } from './common.js';
 import { getConnectionReady } from './wallet.js';
 
@@ -54,7 +55,7 @@ export async function loadStaticProductData() {
                 }));
             }
             // sort by product begin
-            products = products.sort(function (a, b) { return a.begin - b.begin });
+            products = products.sort(function (a, b) { return a.id - b.id });
 
             let lastProductEnd = products.reduce((maxEnd, currProduct) => { return (currProduct.end > maxEnd.end) ? currProduct : maxEnd })
             if (params.gameEnd < lastProductEnd.end) {
@@ -295,7 +296,7 @@ export async function purchaseProductNFT(_productID, _discount = false) {
 }
 
 export async function purchaseProcess({ _USDCprice, _productId }) {
-    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
+//    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
     // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
     // might make sense to use toastify-js here, for steps/status
     let nftId;
@@ -312,12 +313,17 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
             };
             approveUSDC(_USDCprice).then(async (tx) => {    // get USDC approval
                 console.info(`✓ USDC approved`);
+//                let approvalWait = showWaiting();
                 await waitForTx(tx).then(async () => {
+//console.log(approvalWait)
+//                            approvalWait.hideToast();
                     console.info(`✓ USDC approval tx complete on-chain`);
                     await purchaseProductNFT(_productId)
                         .then(async (_tx) => {
                             console.info(`✓ NFT purchased`);
+//                            let purchaseWait = showWaiting();
                             await waitForTx(_tx).then(async () => {
+//console.log(purchaseWait)//                                purchaseWait.remove();
                                 console.info(`✓ NFT purchase tx complete on-chain`);
                                 products.find(product => product.storeId == _productId).markPurchased();
                                 showSuccess('NFT purchase successful!', _tx);
@@ -341,7 +347,7 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
 }
 
 export async function getPhysicalProduct(_nftId) {
-    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
+//    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
     // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
     let nftId;
     await getConnectionReady()

@@ -1,6 +1,8 @@
 import { params } from "./main.js";
 import { MEHToken, USDCToken, MEH_VOTE, MEH_TOKEN, etherscan, web3 } from "./addr.js";
 import { loadMyNFTs } from "./nfts.js";
+import { showToast } from './toast.js';
+
 
 export function cleanBigInt(_bigInt, _divisor = 1) {
     return Math.round(Number(_bigInt) / _divisor);
@@ -58,6 +60,12 @@ export function showSuccess(_message, _txId = null) {
         document.body.classList.remove("overlay_on");
     }, 5000);
     //console.log(_message);
+}
+
+export function showWaiting(){
+    const toast = showToast({_msg: "Waiting for tx confirmation.", _dur: 120000});
+    console.log('toast',toast)
+    return toast;
 }
 
 // **********************

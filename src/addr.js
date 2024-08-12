@@ -54,8 +54,8 @@ export async function init() {
         MEH_ROYALTY = "0x0F3b4250d174aDC7d1e90A438a1706404C85fFd4";
         MEH_VOTE = "0x617981E1DbDdAc0b7e14949B6dF784e92BC9bCDd";
         USDC_TOKEN = "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913";
-        MEH_STORE = "";
-        MEH_STORE_NFT = "";
+        MEH_STORE = "0xFD6aF32884C7E79Fd26b4D1e8017D5D79B9266D9";
+        MEH_STORE_NFT = "0x97b552296bB286C2AD5323A5502865e27cE387fD";
         apiKey = "DSDV-PHXPq4Znjpnwr4DkthBE6MLWc--";
         alchemy = "https://base-mainnet.g.alchemy.com/v2/"
         etherscan = "basescan.org";

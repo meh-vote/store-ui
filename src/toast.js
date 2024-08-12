@@ -2,8 +2,8 @@ import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 
 
-export function showSuccess({ _msg = "Success!", _dur = 3000, _link = null }) {
-    Toastify({
+export function showToast({ _msg = "Success!", _dur = 3000, _link = null }) {
+    const out = Toastify({
         text: _msg,
         duration: _dur,
         gravity: 'bottom',
@@ -14,4 +14,5 @@ export function showSuccess({ _msg = "Success!", _dur = 3000, _link = null }) {
         },
         stopOnFocus: true
     }).showToast();
+    return out;
 }

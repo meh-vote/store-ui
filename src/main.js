@@ -15,14 +15,12 @@ import { init as walletInit, connect, tokenDisplay } from './wallet.js';
 import { loadMyNFTs } from './nfts.js';
 
 
-import { showSuccess } from './toast.js';
-
 library.add(faCirclePlus, faTrashCan, faQuestion);
 dom.watch();
 
 export const params = {
-    preferredNetwork: '0x14a34', // Sepolia
-    //preferredNetwork: '0x2105', // Base
+    //preferredNetwork: '0x14a34', // Sepolia
+    preferredNetwork: '0x2105', // Base
     onPreferredNetwork: null,
     currNetwork: null,
     gameId: 1,
@@ -51,9 +49,6 @@ await prepConnectBtn();
 await walletInit();
 showFAB();
 //updateTransactionQueue();
-//showSuccess({_msg:"Loading...", _dur:30000});
-//showSuccess({_msg:"Loading..."});
-//showSuccess({});
 
 export function prepConnectBtn() {
     document.body.classList.add("disconnected");

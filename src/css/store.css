@@ -114,6 +114,32 @@ body {
     width: calc(100% - 20px);
 }
 
+#footer {
+    color:white;
+    background-color: var(--background-color-dark);
+    grid-area: footer;
+    height: 100px;
+    font-size: small;
+    position: relative;
+    align-content: end;
+}
+
+#footer * {
+    font-size: small;
+}
+
+#footer #copy {
+    padding: 0 0 0.5rem 0.5rem;
+}
+
+#footer #ccip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 #links .basescan {
     height: 28px;
     width: 28px;

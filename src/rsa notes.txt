@@ -1,0 +1,109 @@
+window.crypto.subtle.generateKey(
+  {
+    name: "RSA-OAEP",
+    modulusLength: 4096,
+    publicExponent: new Uint8Array([1, 0, 1]),
+    hash: "SHA-256",
+  },
+  true,
+  ["encrypt", "decrypt"],
+).then((e) => {
+  crypto.subtle.exportKey('jwk',e.publicKey).then((f) => {console.log('public',JSON.stringify(f))});
+  crypto.subtle.exportKey('jwk',e.privateKey).then((f) => {console.log('private',JSON.stringify(f))});
+});
+
+// JWT
+public {"alg":"RSA-OAEP-256","e":"AQAB","ext":true,"key_ops":["encrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck"}
+private {"alg":"RSA-OAEP-256","d":"HqAkxlllae4gdmfzzjCyjH8kpFnV-SPZhB5tmd1_4NqODMr6L7DMjp4og94HCm6DOpEOgN95tFBbEBOArxug_hz6v6f5XJF8ZU-imcaAY25JWr9rgJc1rO4zCCK29kCFShaRQB3IorF_qMQo1hbTDBfVIFiQg9o8MAmaakuFe9RAD-OT8zt3Gpd818yIrk0Jtg0FSEDhjJjzoAGuoJhS1pWZosCm11Q8XvGj-u7qyIB1pKDYuHeLVhVJMbr7y884RvCl6eBM6nEljjqog1azWRpYntUbXH8reBF1dbwqsrqhuQLQ0WTfAQFUNaj5Uv3_Fe69TssIA2JV4tk2o3xT3bv3hrMF-4YWRsZs-DockHzW4Lg5ig_HXjwflcePZt77Jy9VdIO77PMrQ1cBwvztL1j1ZG-MWjrs56tBTOk-YNEAVkFOkcInGqAmRUty4LDS5QfdY2_2zZrm_97OR8Anhz6PcLfZVM_x414H9ygiMOdvq-An8-Ig7pO-k9hvPBotPNdwfSe1x21JAJtr85HTzrzYgDGsK3M0t_b3FL60Q3zliDZ2IRXITdkKS5x2jCyLLC3dNrtCwAJV4MfY_x-cJLj5PHz0a9UcUzayT6KdWBZTolWCAHPkfgELNmaU6Kl7JiCFDgWG_Z9-HG-8xjyng5FwD_zS3_w1CxyRtN57ZWE","dp":"DJo8wB_sUMka80Q_UmtLDhrGsNOcy1xFmE7M-8mPCveKkisRnTasMIfhAAGw9SUs9GHxki4vq0MqNcK-hlkQJYQ6Wdeie-6FX3o8En3uEYnf8X_lN-rx3IbTogZ241iQLO4HfcGanRG6__G2tWVuDBPNgXS4U7SzcEZylhgeUpSsqVsgUlQxCJbKztSlyPcwanQfAXpOkd3kiRPI-JrbyvuaCmc6fhZiav8VcPfdiisKjg9c_Y_JoEqUlsq1rM6NSOV5qftsIkp1uGFkQi4mQWHu9LSF08MG6DbAzHByvOkes4m3slXHfLB-khhUTIVfl9OUsrYvJFHCQgI1iXiJUQ","dq":"JAX2gSMZM6MrtRJPVuLs243oXyjvl7yLlLK2CObtJBxSb-Hp6D_Xh2ENvOzmk1C7fYq0o1AmN_hLamj9x5V3VraSU25Rj0bdTa5H8aF64n_FGReeglY9hnbJzuWwcWHOVqHzNVuJAauuG4mcfErroXTwxdxjT8CnKs8bTbfCsliChq9YCB9IodCXFOh8Pd8dM4ounmKfdnCr48psgS2J7moVC5BRntA2qMx4gWM6q4lYVptGKLMXuvVeifQfCM9c0wmt03UAsPfld8-gXiYw3IZAGM_4hhar5jE1uAWOgcuJwy0dHpWeS6bqnZr3K9KG7es--1MsE5UwHY-rKX5eKQ","e":"AQAB","ext":true,"key_ops":["decrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck","p":"63EQz5fSg8CjM5vGGwvIo-RTv12HE6KpDgpPljlrdYi5MSjZx_muNWxofkyMnOiCTZDtU8JAUxuL48FC7P8DsOvZU-vh5vg2u1-2M4Vw7Zsb-iZwE9yEfGbDDd9flbTyGPkGZ_9xdDP2yAGnMje2jNU0onYPNckPQBCOMmeoCrot-iV8dRdOSYwR7LHQiY7Xi5HERryS1yrLFxV1X7tueWNSdpsRBscdlUXMC3rIZQqPsn5TQpxmwYwtox-PSikE7A9dqWI79yPnr_QUHDLSuH9LgPvOZaUe4u5Eid6psg0bfKx1pChqbuwYtXvxLMiL6OEYr-_J43WImB29tuIjJQ","q":"tiMMB52cq_2d9zEbUXRSmqhtRz6VPpw_styzj0knrbXyu2Ux7mriAQnbin_4a5WkZ5zRoJVXLdSJq_OuAlrobAfrqFKTITpaYw7YOMAPPyJRTuVUXw1PDbZ0y6cIZSokHJqPh5Q2I5BKFjGIluDpc_Gqf4d4CyNpBSPygduW0DqOa99EwlOtElALfA-qLGKnI0LqkAqzlp3PL-FakNj-7r0dnjmJFm7JjKSBC0CVcaRbezFuAdd7PcKlffB03BARvlJBl7JYhOPOOWAvrBLIUasqhegW3yjXxDgCZPKoz36rAouZX3Jevwva9ZBPIlvueISot1KpbkUKSOmyXaU41Q","qi":"sUrBwPTKOyJZChBdd1t4yDb9oFJIG0e1iJnlM4NJWotg0hrjFw-h2s05UXnY37xkpaaWze5kLPqFzmaxmYmzOCgl1_QhPXaynIbvV00TTW-Vno0wB44WybdaVZTKtHqY4d1DvSfysqWZWbMICmgLV7UKOIrywivYkIwFkW1MK81TV4WPmSuvX7g-9GCaMgxp5jW8tlrbwJbLuJVFEshIyo6qfdCoQTLG7IUxudeaQVTUEiiJR_sNANmEYANDZpb6uz7vzF8L1vcf_ZQYtPgJTzy6OBapxL2AGFWzXYBd5VntYCEfcDqQU1m19M1-NpUoSMk9dXK8EBqTPWdy0AlZcg"}
+
+
+window.buffer
+
+crypto.subtle.importKey('jwk',JSON.parse('{"alg":"RSA-OAEP-256","e":"AQAB","ext":true,"key_ops":["encrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck"}'),{
+    name: "RSA-OAEP",
+  hash: "SHA-256",
+},false,['encrypt']).then((e) => {
+  const encoder = new TextEncoder();
+  const view = encoder.encode('This is a test. 123 {"blah": "super"}');
+  crypto.subtle.encrypt({
+    name: "RSA-OAEP",
+    hash: "SHA-256",
+  },e,view).then((x) => {
+//console.log(new TextEncoder().encode(x));
+//console.log(new TextDecoder().decode(new TextEncoder().encode(x)));
+    let buffer = new Uint8Array(x, 0);
+    console.log('encrypted:', buffer.toString());
+/*    let buffer1 = buffer.toString().split(",");
+    let buffer2 = new Uint8Array();
+    buffer2 = Uint8Array.from(buffer1);
+    console.log('buffer1:', buffer1);
+    window.buffer1 = buffer1;
+    console.log('buffer2:', buffer2);
+*/
+let buffer2 = new Uint8Array();
+buffer2 = Uint8Array.from(buffer);
+console.log('encrypted:', buffer2.toString());
+//window.test = new TextEncoder().encode(x);
+window.buffer = buffer2.toString();
+    });
+});
+
+crypto.subtle.importKey('jwk',JSON.parse('{"alg":"RSA-OAEP-256","e":"AQAB","ext":true,"key_ops":["encrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck"}'),{
+  name: "RSA-OAEP",
+hash: "SHA-256",
+},false,['encrypt']).then((e) => {
+const encoder = new TextEncoder();
+const view = encoder.encode('This is a test. 123ZZZ {"blah": "super"}');
+crypto.subtle.encrypt({
+  name: "RSA-OAEP",
+  hash: "SHA-256",
+},e,view).then((x) => {
+  let buffer = new Uint8Array(x);
+  window.buffer = buffer.toString();
+  });
+});
+
+
+window.buffer =
+'146,177,13,162,191,219,181,215,57,96,47,235,104,109,172,158,7,188,152,192,10,225,41,20,178,223,33,39,0,127,84,1,86,58,242,76,58,118,54,33,171,148,222,60,118,186,25,123,95,174,140,128,244,5,169,130,151,46,162,12,231,56,116,200,193,13,216,100,116,100,121,124,242,134,4,249,26,41,65,78,92,16,66,111,119,84,206,255,183,65,145,93,91,251,226,154,163,184,59,61,62,182,19,164,46,205,13,206,154,106,162,255,46,193,175,166,97,255,218,104,6,31,198,109,85,211,5,127,3,61,232,170,197,198,95,213,145,156,209,85,142,247,130,187,23,223,160,250,80,183,1,130,224,94,188,172,27,39,211,152,140,250,120,75,175,47,201,19,78,171,165,13,190,138,240,210,149,103,160,31,135,207,63,187,25,228,224,13,45,166,65,175,38,14,173,243,55,182,174,20,85,173,221,232,64,44,177,253,244,106,1,122,65,77,72,86,225,33,183,132,179,221,77,164,177,47,168,244,216,249,151,73,59,202,144,233,215,219,28,26,86,13,206,15,69,193,202,71,67,112,92,51,101,168,175,73,233,96,57,122,3,248,182,144,25,165,107,188,232,199,198,37,186,38,99,48,122,117,30,95,163,17,60,155,178,94,197,129,45,206,206,220,101,166,161,162,3,139,36,184,54,133,100,152,55,62,164,33,123,4,133,123,86,129,177,168,246,41,30,254,217,171,215,74,200,224,50,252,103,171,79,207,78,147,161,191,126,140,33,30,142,156,115,144,254,221,252,119,28,253,48,113,24,48,157,106,66,186,170,229,98,140,227,103,197,191,25,168,181,54,107,65,164,22,87,153,52,252,228,248,232,24,166,224,117,191,212,74,42,76,251,91,66,86,178,29,96,52,71,32,28,72,121,232,187,72,122,8,238,224,87,129,42,124,162,223,173,138,128,145,31,93,234,183,68,221,4,35,70,85,108,79,116,213,177,151,62,0,69,142,234,105,208,51,131,58,211,11,245,53,107,20,220,14,124,198,198,238,61,123,9,56,103,227,203,134,11,13,90,50,90,118,213,136,168,164,228,217,188,255,237,130,0,64,36,240,125,0,192,231,131,10,17,30,233,15,89,123,11,190,192,152,236,17,37,79,107,214,34,2,59,99'
+;
+
+crypto.subtle.importKey('jwk',JSON.parse('{"alg":"RSA-OAEP-256","d":"HqAkxlllae4gdmfzzjCyjH8kpFnV-SPZhB5tmd1_4NqODMr6L7DMjp4og94HCm6DOpEOgN95tFBbEBOArxug_hz6v6f5XJF8ZU-imcaAY25JWr9rgJc1rO4zCCK29kCFShaRQB3IorF_qMQo1hbTDBfVIFiQg9o8MAmaakuFe9RAD-OT8zt3Gpd818yIrk0Jtg0FSEDhjJjzoAGuoJhS1pWZosCm11Q8XvGj-u7qyIB1pKDYuHeLVhVJMbr7y884RvCl6eBM6nEljjqog1azWRpYntUbXH8reBF1dbwqsrqhuQLQ0WTfAQFUNaj5Uv3_Fe69TssIA2JV4tk2o3xT3bv3hrMF-4YWRsZs-DockHzW4Lg5ig_HXjwflcePZt77Jy9VdIO77PMrQ1cBwvztL1j1ZG-MWjrs56tBTOk-YNEAVkFOkcInGqAmRUty4LDS5QfdY2_2zZrm_97OR8Anhz6PcLfZVM_x414H9ygiMOdvq-An8-Ig7pO-k9hvPBotPNdwfSe1x21JAJtr85HTzrzYgDGsK3M0t_b3FL60Q3zliDZ2IRXITdkKS5x2jCyLLC3dNrtCwAJV4MfY_x-cJLj5PHz0a9UcUzayT6KdWBZTolWCAHPkfgELNmaU6Kl7JiCFDgWG_Z9-HG-8xjyng5FwD_zS3_w1CxyRtN57ZWE","dp":"DJo8wB_sUMka80Q_UmtLDhrGsNOcy1xFmE7M-8mPCveKkisRnTasMIfhAAGw9SUs9GHxki4vq0MqNcK-hlkQJYQ6Wdeie-6FX3o8En3uEYnf8X_lN-rx3IbTogZ241iQLO4HfcGanRG6__G2tWVuDBPNgXS4U7SzcEZylhgeUpSsqVsgUlQxCJbKztSlyPcwanQfAXpOkd3kiRPI-JrbyvuaCmc6fhZiav8VcPfdiisKjg9c_Y_JoEqUlsq1rM6NSOV5qftsIkp1uGFkQi4mQWHu9LSF08MG6DbAzHByvOkes4m3slXHfLB-khhUTIVfl9OUsrYvJFHCQgI1iXiJUQ","dq":"JAX2gSMZM6MrtRJPVuLs243oXyjvl7yLlLK2CObtJBxSb-Hp6D_Xh2ENvOzmk1C7fYq0o1AmN_hLamj9x5V3VraSU25Rj0bdTa5H8aF64n_FGReeglY9hnbJzuWwcWHOVqHzNVuJAauuG4mcfErroXTwxdxjT8CnKs8bTbfCsliChq9YCB9IodCXFOh8Pd8dM4ounmKfdnCr48psgS2J7moVC5BRntA2qMx4gWM6q4lYVptGKLMXuvVeifQfCM9c0wmt03UAsPfld8-gXiYw3IZAGM_4hhar5jE1uAWOgcuJwy0dHpWeS6bqnZr3K9KG7es--1MsE5UwHY-rKX5eKQ","e":"AQAB","ext":true,"key_ops":["decrypt"],"kty":"RSA","n":"p4KdeTAnCqFRKDfwaAR1tL6agO3NugvD1Zwh2VooC9h-TFbOnhUHYUU_f5sL7oN5rXNEieRHsp2px07woUXID1b5u268texHa43STuePvq3YdBLDnyUCse2f_brXo9yGDzWHCzexujk5WbAgscCygYkmKZIHh47ZjFLHdwvqyqqUMXl66TZGdtjNxq9KthHcmXY4xg-Bzg715K4kMumjw4CqwnlNz_NuRURNsmCbss_jZMUEg8mOirekMXxr_2F4gRERXCHRI-UqP1ThEBe68WEp8a3rGJ_P9E_ErCd-Eyv6x3qMVRH_hv5cBT0KYgKF1MujelhtW12mdiyOpnT7pi8LWIEp3bCSeVSV5mdYzpKWccin3iIpVJhY2E_hqPBEfIvIinox0FUPzupFGxNZn0wIumcBcR2y0i2pEMfwNStgi83QMRsEeh0gWOATVnaR4ZJsc8Jl0mEl86WyIbJ4WWJJmnM7N1LbWyVKKJDvHOWntMhsSY1X_tgNexXXEA1zHNBGkqTqAIJekdEdwZio0mgNaK3DwKAfwXRd1HbyZXvN_bvUYPA-p57c8LiZc7KE4xTutchv2bsQgR96DU6AoH8CPEs6HUxjgNGlauaWxC6x2KGVL0a0c3Wmiv-jip6vMNjD4qEW0KrzSuvPkq6OEg1hg0qw7UDUU2piGbmwVck","p":"63EQz5fSg8CjM5vGGwvIo-RTv12HE6KpDgpPljlrdYi5MSjZx_muNWxofkyMnOiCTZDtU8JAUxuL48FC7P8DsOvZU-vh5vg2u1-2M4Vw7Zsb-iZwE9yEfGbDDd9flbTyGPkGZ_9xdDP2yAGnMje2jNU0onYPNckPQBCOMmeoCrot-iV8dRdOSYwR7LHQiY7Xi5HERryS1yrLFxV1X7tueWNSdpsRBscdlUXMC3rIZQqPsn5TQpxmwYwtox-PSikE7A9dqWI79yPnr_QUHDLSuH9LgPvOZaUe4u5Eid6psg0bfKx1pChqbuwYtXvxLMiL6OEYr-_J43WImB29tuIjJQ","q":"tiMMB52cq_2d9zEbUXRSmqhtRz6VPpw_styzj0knrbXyu2Ux7mriAQnbin_4a5WkZ5zRoJVXLdSJq_OuAlrobAfrqFKTITpaYw7YOMAPPyJRTuVUXw1PDbZ0y6cIZSokHJqPh5Q2I5BKFjGIluDpc_Gqf4d4CyNpBSPygduW0DqOa99EwlOtElALfA-qLGKnI0LqkAqzlp3PL-FakNj-7r0dnjmJFm7JjKSBC0CVcaRbezFuAdd7PcKlffB03BARvlJBl7JYhOPOOWAvrBLIUasqhegW3yjXxDgCZPKoz36rAouZX3Jevwva9ZBPIlvueISot1KpbkUKSOmyXaU41Q","qi":"sUrBwPTKOyJZChBdd1t4yDb9oFJIG0e1iJnlM4NJWotg0hrjFw-h2s05UXnY37xkpaaWze5kLPqFzmaxmYmzOCgl1_QhPXaynIbvV00TTW-Vno0wB44WybdaVZTKtHqY4d1DvSfysqWZWbMICmgLV7UKOIrywivYkIwFkW1MK81TV4WPmSuvX7g-9GCaMgxp5jW8tlrbwJbLuJVFEshIyo6qfdCoQTLG7IUxudeaQVTUEiiJR_sNANmEYANDZpb6uz7vzF8L1vcf_ZQYtPgJTzy6OBapxL2AGFWzXYBd5VntYCEfcDqQU1m19M1-NpUoSMk9dXK8EBqTPWdy0AlZcg"}'),{
+  name: "RSA-OAEP",
+  hash: "SHA-256",
+},false,['decrypt']).then((e) => {
+  const f = Uint8Array.from(buffer.toString().split(","));
+crypto.subtle.decrypt({
+  name: "RSA-OAEP",
+  hash: "SHA-256",
+},e,f).then((x) => {
+console.log(x);
+  const decoder = new TextDecoder();
+  const view = decoder.decode(x);
+console.log(x);
+console.log(view);
+//  window.out = new TextDecoder().decode(view);
+  });
+});
+
+
+
+
+PRIMARY
+[ ] Verify/get updated product references in contract (sepolia)
+[ ] Add link to 'my NFTs', after purchase
+[?] more vertical and horizontal margin on shipping form entry
+    -- Need more details here...maybe implement during a working session
+[ ] ERROR: WHEN STORE SITE LOADED AND NOT ON BASE ... the site trying to switch you to Base Sepolia throws error (differing depending on which network it was loaded on/from).
+
+SECONDARY
+[ ] provide steps/progress-list during multi-step transactions
+    [ ] alt approach: could use a toaster solution; toaster-js
+[ ] show spinner on myNFTs page when loading/updating
+[ ] check USDC approval prior to requesting ... skip step if already sufficient
+[ ] On landing page, if in state to, check for exisiting ownersihp of NFTs ... display an 'owned' action on those, that would redirect to 'my NFTs'
+
+TERTIARY
+[ ] convert MyNFT link to FAB
+[ ] Pass data to MetaMask, show message of step/work for transaction
+[ ] Add new sudo users to VM
