@@ -35,3 +35,8 @@ Prompt no interaction until required for transaction
 
 - Buy the product (with CC/USD, USDC, Product NFT, Royalty NFT)
 - Buy an NFT of the product (with USDC, Royalty NFT)
+
+## running locally
+npm install
+npm run build
+npx webpack serve

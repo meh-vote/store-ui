@@ -86,6 +86,12 @@ body {
     padding-right: 50px;
 }
 
+@media screen and (max-width: 767px) {
+    #links {
+        display: none !important;
+    }
+}
+
 #header #links,
 #header #links *,
 #header #links svg {
