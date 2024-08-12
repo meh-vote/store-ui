@@ -39,7 +39,7 @@ export async function loadMyNFTs() {
             const productId = await getProductIDFromNFT(token);
             const productImage = await getProductImageFromProductId(productId);
             nftList.insertAdjacentHTML('beforeend', `<div class="nft_token" id="nft_${token}" style="background-image: url(${productImage})">NFT ${token}</div>`);
-            document.querySelector(`#nft_${token}`).addEventListener('click', () => {getPhysicalProduct(token)});
+            document.querySelector(`#nft_${token}`).addEventListener('click', () => {getPhysicalProduct(token,productId)});
         });
     }
 }

@@ -661,6 +661,7 @@ body.overlay_on #overlay {
 form#get_address {
     max-width: 320px;
     margin: auto;
+    padding: 2rem 0;
 }
 
 form#get_address label {
@@ -693,6 +694,12 @@ form#get_address~#close {
 
 form#get_address>div {
     margin-bottom: 1rem;
+}
+
+form#get_address #size_select label,
+form#get_address #size_select select {
+    display: inline;
+    width: initial;
 }
 
 button.btn_meh_dark {

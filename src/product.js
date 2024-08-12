@@ -20,7 +20,8 @@ export class product {
         totalContracts = null,
         saleStatus = null,
         order_min = null,
-        details = {}
+        details = {},
+        options = null
     }) {
         this.id = id;
         this.storeId = storeId;
@@ -45,6 +46,7 @@ export class product {
         this.saleStatus = saleStatus;
         this.preorderMin = order_min;
         this.details = details;
+        this.options = options;
         // Need to hold on displaying the remaining contracts until we have a read connection and check the live data
         //        console.log(`contractsDeposited ${this.contractsDeposited}`)
     };

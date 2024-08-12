@@ -16,7 +16,7 @@
         "shippingDomestic": 5.00,
         "shippingInternational": 20.00,
         "order_min": 100,
-        "sizes": ["m","l","xl","xxl"],
+        "options": {"sizes": ["m","l","xl","xxl"]},
         "saleStatus": "active",
         "meta": {
             "description": "Elevate your game with the limited edition EC1000 //MEH T-shirt. Featuring a boxier cut and crafted from soft, heavyweight 100% organic cotton, this classic tee is both stylish and sustainable. Econscious ensures quality and ethical manufacturing, partnering with factories that prioritize a safe and healthy working environment. Embrace elite comfort and eco-conscious fashion with this very limited edition MEH piece. Join the MEH Cult with style.",
@@ -41,7 +41,6 @@
         "shipping_domestic": 5.00,
         "shipping_international": 20.00,
         "order_min": 50,
-        "sizes": ["adjustable"],
         "saleStatus": "active",
         "meta": {
             "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
@@ -66,7 +65,7 @@
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
-    "sizes": ["m", "l", "xl", "xxl"],
+    "options": {"sizes": ["m","l","xl","xxl"]},
     "saleStatus": "active",
     "meta": {
         "description": "Elevate your game with the limited edition EC1000 //MEH T-shirt. Featuring a boxier cut and crafted from soft, heavyweight 100% organic cotton, this classic tee is both stylish and sustainable. Econscious ensures quality and ethical manufacturing, partnering with factories that prioritize a safe and healthy working environment. Embrace elite comfort and eco-conscious fashion with this very limited edition MEH piece. Join the MEH Cult with style.",
@@ -91,7 +90,6 @@
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
-    "sizes": ["adjustable"],
     "saleStatus": "active",
     "meta": {
         "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
@@ -116,7 +114,7 @@
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
-    "sizes": ["xl","xxl"],
+    "options": {"sizes": ["l","xl","xxl"]},
     "saleStatus": "active",
     "meta": {
         "description": "Step into elite style with the limited edition EC5500 Unisex Heritage Pullover Hoodie, now in black with //MEH ERC-721 embroidered on the front. Crafted by Econscious, this hoodie seamlessly blends timeless comfort with eco-conscious materials. The unisex design offers a versatile fit, while heritage-inspired details add a touch of nostalgia, yeah. This very limited, very elite hoodie is the ultimate addition to any wardrobe. Elevate your style and sustainability game with this exclusive //MEH piece.",
@@ -140,7 +138,7 @@
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
-    "sizes": ["xl","xxl"],
+    "options": {"sizes": ["l","xl","xxl"]},
     "saleStatus": "active",
     "meta": {
         "description": "Experience timeless comfort and sustainability with the EC5500 Unisex Heritage Pullover Hoodie. Crafted by Econscious, partnering with //MEH. This classic hoodie blends style with eco-conscious materials. Its unisex design offers a versatile fit, while heritage-inspired details add a touch of nostalgia, or whatever you are into. Wrap yourself in MEH’s eco-friendly heritage.",
@@ -193,7 +191,6 @@
     "shippingDomestic": 5.00,
     "shippingInternational": 20.00,
     "order_min": 100,
-    "sizes": ["adjustable"],
     "saleStatus": "",
     "meta": {
         "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",

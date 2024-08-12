@@ -51,7 +51,8 @@ export async function loadStaticProductData() {
                     totalContracts: Number(_product.totalContracts),
                     saleStatus: _product.saleStatus,
                     order_min: Number(_product.order_min),
-                    details: _product.meta
+                    details: _product.meta,
+                    options: _product.options
                 }));
             }
             // sort by product begin
@@ -346,10 +347,14 @@ export async function purchaseProcess({ _USDCprice, _productId }) {
         });
 }
 
-export async function getPhysicalProduct(_nftId) {
+export async function getPhysicalProduct(_nftId, _productId = null) {
 //    console.info(`VERIFY ... cancelling tx at any step throws error and stops function.`);
     // Instead of nesting all these fx().then().catch() ... maybe make a try/catch block with sequential await calls
     let nftId;
+    let options;
+    if (_productId) {
+        options = products.find(product => product.storeId == _productId).options;
+    }
     await getConnectionReady()
         .then(async () => {
             console.info('✓ connection ready');
@@ -359,7 +364,7 @@ export async function getPhysicalProduct(_nftId) {
                 console.info(`✓ NFT approved`);
                 await waitForTx(_tx).then(async () => {
                     console.info(`✓ NFT approval tx complete on-chain`);
-                    await addrForm('Send').then(async (_form_data) => {
+                    await addrForm({btn_label:'Send'}).then(async (_form_data) => {
                         console.info(`✓ Address form submitted`);
                         await NFTtoProduct({ _nftId, _address: await RSAencrypt(_form_data) })
                             .then(async (_tx) => {

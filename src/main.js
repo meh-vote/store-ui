@@ -19,7 +19,7 @@ library.add(faCirclePlus, faTrashCan, faQuestion);
 dom.watch();
 
 export const params = {
-    //preferredNetwork: '0x14a34', // Sepolia
+//    preferredNetwork: '0x14a34', // Sepolia
     preferredNetwork: '0x2105', // Base
     onPreferredNetwork: null,
     currNetwork: null,

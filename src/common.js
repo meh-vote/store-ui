@@ -217,8 +217,31 @@ export async function RSAencrypt(_JSONdata) {
     return encrypted;
 };
 
-export function addrForm(btn_label = 'Submit') {
+export function addrForm({btn_label = 'Submit', _options = {}}) {
     return new Promise((resolve, reject) => {
+        let sizeSelect;
+        if (Object.keys(_options) === 0 || JSON.stringify(_options) === '{}') {
+            console.info("no options to prompt for")
+        } else {
+            console.log('options',JSON.stringify(_options));
+            if (_options.hasOwnProperty('sizes')) {
+                console.log('sizes',_options.sizes)
+                let sizes='';
+                _options.sizes.forEach((_size) => {
+                    _size = _size.toUpperCase();
+                    sizes += `<option value="${_size}">${_size}</option>`
+                });
+                sizeSelect = document.createElement("div");
+                sizeSelect.id = "size_select";
+                sizeSelect.innerHTML = `<label for="size">Select size</label>
+                <select id="size" name="size" enterkeyhint="done" required>
+                <option></option>
+                ${sizes}
+                </select>`;
+                console.log('out',sizeSelect)
+            }
+        }
+    
         let div = document.createElement("div");
         div.id = "overlay";
         document.body.insertAdjacentElement('beforeend', div);
@@ -264,6 +287,8 @@ export function addrForm(btn_label = 'Submit') {
       <button class="btn_meh_dark">Send</button>
     </form>
   </div>`;
+        if (sizeSelect) document.getElementById('get_address').insertAdjacentElement('afterbegin', sizeSelect);
+
         document.body.classList.add("overlay_on");
 
         document.getElementById('overlay_content').insertAdjacentHTML('beforeend', `<div id="close">X</div>`);
