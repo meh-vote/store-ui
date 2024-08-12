@@ -47,10 +47,12 @@ body {
         height: calc(100vh - (var(--header_height) * 2));
         overflow-y: scroll;
     }
-}
-
-.hidden {
-    display: none;
+    :root {
+        --header_height: 64px;
+    }
+    #header #logo {
+        background-size: auto 48px;
+    }
 }
 
 #header {
