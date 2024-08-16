@@ -49,6 +49,7 @@ await prepConnectBtn();
 await walletInit();
 showFAB();
 //updateTransactionQueue();
+checkLocalStorage();
 
 export function prepConnectBtn() {
     document.body.classList.add("disconnected");
@@ -56,4 +57,10 @@ export function prepConnectBtn() {
     params.walletDiv.innerText = 'Connect';
     params.walletDiv.addEventListener("click", connect);
     params.account = null;
+}
+
+function checkLocalStorage() {
+    if (localStorage.getItem('reload')) {
+        console.log('Page may have been recently reloaded.', JSON.parse(localStorage.getItem('reload')));
+    }
 }

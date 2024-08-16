@@ -76,13 +76,14 @@ function updateConnectionStatus(_status = 'static') {
 }
 
 function handleChainChanged(_chainId) {
+    localStorage.setItem('reload', `{"last_action": "chain_changed", "timestamp": ${Date.now()}}`);
     // Default when chain changes, reload the page
-    //reloadClient();
-    console.log('chain changed to ', _chainId);
+    reloadClient();
+/*    console.log('chain changed to ', _chainId);
     if (params.preferredNetwork != _chainId) {
         throw new Error(`Try switching to a supported chain. ${_chainId} not supported`);    
     };
-}
+*/}
 
 function showConnected() {
     document.body.classList.add("connected");
