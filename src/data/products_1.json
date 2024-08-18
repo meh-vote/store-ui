@@ -9,7 +9,7 @@
         "mehContracts": 250,
         "mehContractsDeposited": null,
         "mehStore": true,
-        "usdcPrice": 42,
+        "usdcPrice": 38,
         "name": "Limited Edition //MEH T-shirt - Embroidered",
         "prizeMeh": 100000000000000000000000000,
         "totalContracts": 1000,
@@ -34,7 +34,7 @@
         "mehContracts": 150,
         "mehContractsDeposited": null,
         "mehStore": true,
-        "usdcPrice": 42,
+        "usdcPrice": 38,
         "name": "//MEH Eco-Trucker Hat - Embroidered",
         "prizeMeh": 10000000000000000000000000,
         "totalContracts": 2000,
@@ -58,7 +58,7 @@
     "mehContracts": 75,
     "mehContractsDeposited": null,
     "mehStore": true,
-    "usdcPrice": 35,
+    "usdcPrice": 29,
     "name": "Limited Edition //MEH T-shirt - Screenprint",
     "prizeMeh": 25000000000000000000000000,
     "totalContracts": 1000,
@@ -83,7 +83,7 @@
     "mehContracts": 500,
     "mehContractsDeposited": null,
     "mehStore": true,
-    "usdcPrice": 35,
+    "usdcPrice": 29,
     "name": "//MEH Eco-Trucker Hat - Screenprint",
     "prizeMeh": 5000000000000000000000000,
     "totalContracts": 2000,
@@ -107,7 +107,7 @@
     "mehContracts": 50,
     "mehContractsDeposited": null,
     "mehStore": true,
-    "usdcPrice": 78,
+    "usdcPrice": 69,
     "name": "Limited Edition //MEH Black Hoodie",
     "prizeMeh": 50000000000000000000000000,
     "totalContracts": 50,
@@ -131,7 +131,7 @@
     "mehContracts": 100,
     "mehContractsDeposited": null,
     "mehStore": true,
-    "usdcPrice": 78,
+    "usdcPrice": 69,
     "name": "//MEH Heritage Pullover Hoodie",
     "prizeMeh": 2500000000000000000000000,
     "totalContracts": 1000,
@@ -197,5 +197,28 @@
         "material": "70% cotton / 30% polyester",
         "coo": "China"
     }
-}
+},
+    {
+        "begin": 1715547600,
+        "end": 1715655209,
+        "id": 9,
+        "limitedRun": false,
+        "mehContractPrice": 2500000000000000000000000,
+        "mehContracts": 500,
+        "mehContractsDeposited": null,
+        "mehStore": true,
+        "usdcPrice": 82,
+        "name": "//MEH Ape Hoodie",
+        "prizeMeh": 5000000000000000000000000,
+        "totalContracts": 2000,
+        "shippingDomestic": 5.00,
+        "shippingInternational": 20.00,
+        "order_min": 100,
+        "saleStatus": "",
+        "meta": {
+            "description": "You know you want it, so eco. This eco-friendly trucker hat blends 100% organic cotton with 100% recycled polyester. Perfect for blocking the sun and catching the breeze, it’s a classic style with a sustainable twist.",
+            "material": "70% cotton / 30% polyester",
+            "coo": "China"
+        }
+    }
 ]
