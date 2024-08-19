@@ -51,7 +51,7 @@ export function showSuccess(_message, _txId = null) {
     if (_txId) {
         div.innerHTML = `<div id="overlay_content">${_message}<br /><a href="https://${etherscan}/tx/${_txId}" target="_blank">${_txId}</a></div>`;
     } else {
-        div.innerHTML = _message;
+        div.innerHTML = `<div id="overlay_content">${_message}</div>`;
     }
     document.body.classList.add("overlay_on");
 

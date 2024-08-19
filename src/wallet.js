@@ -12,6 +12,8 @@ export async function init() {
         await startApp(params.provider); // Initialize your app
     } else {
         console.log('Please install MetaMask!');
+        showSuccess("This is the Meh dapp, and requires a web3 provider.<br>We will redirect you to our Shopify store.");
+        setTimeout(() => { window.location.assign("https://web2.meh.store/"); }, 3000);
         // call showErrors with stop
     }
 }
